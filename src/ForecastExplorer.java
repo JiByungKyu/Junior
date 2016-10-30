@@ -5,18 +5,70 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class ForecastExplorer extends ApiExplorer {
-	public void send() throws IOException {
-		StringBuilder forecastURL = new StringBuilder(Baseurl + Space);
-		forecastURL.append("?ServiceKey=" + serviceKey);// URLEncoder.encode(serviceKey,"UTF-8"));
+	String Grib = "ForecastGrib";// 실황정보
+	String Space = "ForecastSpaceData";// 동네예보
+
+	ForecastExplorer() throws IOException {
+		super();
+	}
+
+	private int Make_GBTime() {// 실황 예보 시간
+		int Btime = currentTime();
+		if (Btime % 100 <= 40) {// API 제공시간 전
+			if (Btime < 100) {// 00시의 경우
+				Btime += 2300;
+			} else {
+				Btime -= 100;
+			}
+		}
+		return (Btime / 100) * 100;
+	}
+
+	private int Make_SBTime() {
+		int Btime = currentTime() / 100;
+		if (Btime % 3 == 2)
+			;
+		else if (Btime % 3 == 1) {
+			Btime -= 2;
+		} else {
+			Btime -= 1;
+		}
+
+		return Btime * 100;
+	}
+
+	public String Grib_Request() {
+		StringBuilder forecastURL = new StringBuilder(FCBaseurl + Grib);
+		forecastURL.append("?ServiceKey=" + FCserviceKey);// URLEncoder.encode(serviceKey,"UTF-8"));
 		forecastURL.append("&_type=json");
-		forecastURL.append("&base_date=20161023" + "&base_time=2000");
-		forecastURL.append("&nx=60" + "&ny=127");
+		forecastURL.append("&base_date=" + currentDate() + "&base_time=" + Make_GBTime());
+		forecastURL.append("&nx=60" + "&ny=127");// 충무로
 		forecastURL.append("&numOfRows=999");/* 검색건수 */
 		forecastURL.append("&pageNo=1"); /* 페이지 번호 */
-		URL forecasturl = new URL(forecastURL.toString());
+		return forecastURL.toString();
+	}
+
+	public String Space_Request() {
+		StringBuilder forecastURL = new StringBuilder(FCBaseurl + Space);
+		forecastURL.append("?ServiceKey=" + FCserviceKey);// URLEncoder.encode(serviceKey,"UTF-8"));
+		forecastURL.append("&_type=json");
+		forecastURL.append("&base_date=" + currentDate() + "&base_time=" + Make_SBTime());
+		forecastURL.append("&nx=60" + "&ny=127");// 충무로
+		forecastURL.append("&numOfRows=999");/* 검색건수 */
+		forecastURL.append("&pageNo=1"); /* 페이지 번호 */
+		return forecastURL.toString();
+	}
+
+	public String send(boolean isSpace) throws IOException {
+		URL forecasturl;
+		if (isSpace)
+			forecasturl = new URL(Space_Request());
+		else
+			forecasturl = new URL(Grib_Request());
+
 		HttpURLConnection conn = (HttpURLConnection) forecasturl.openConnection();
 		conn.setRequestMethod("GET");
-		// conn.setRequestProperty("Content-type", "application/json");
+		conn.setRequestProperty("Content-type", "application/json");
 		System.out.println("Response code: " + conn.getResponseCode());
 		BufferedReader rd;
 		if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
@@ -30,10 +82,8 @@ public class ForecastExplorer extends ApiExplorer {
 			sb.append(line);
 		}
 		rd.close();
-		// System.out.println(forecasturl);
 		conn.disconnect();
-		System.out.println(sb.toString());
-		//
+		// System.out.println(forecasturl.toString());
+		return sb.toString();
 	}
-
 }

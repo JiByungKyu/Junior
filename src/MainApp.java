@@ -13,8 +13,7 @@ public class MainApp {
 		// ToDo1.setVisible(true); // Makes the frame visible to the user
 		// (default
 		// = false)
-		ForecastExplorer a = new ForecastExplorer();
-		a.send();
+		Weather weather = new Weather();
 	}
 
 }
