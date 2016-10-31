@@ -6,13 +6,14 @@ import javax.json.stream.JsonParser;
 
 public class ForecastParser {
 	protected String param;
-	private boolean isSpace = true;// 동네 예보
+	private boolean isSpace = true;//
 	ForecastExplorer FE = new ForecastExplorer();
 
 	ForecastParser(WeatherData Space[], WeatherData Grib) throws IOException {
 
 		System.out.println(FE.send(isSpace));
 		System.out.println(FE.send(!isSpace));
+		GribParsing();
 
 	}
 
