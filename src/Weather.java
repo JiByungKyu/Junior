@@ -1,10 +1,13 @@
 import java.io.IOException;
+import java.util.HashMap;
+
+import org.json.simple.parser.ParseException;
 
 public class Weather {
-	WeatherData Space[];// µ¿³×¿¹º¸
-	WeatherData Grib;// ½ÇÈ²
+	HashMap<String, String> Space[] = new HashMap[15];// ì˜ˆë³´
+	HashMap<String, String> Grib = new HashMap(); // ì •ë³´
 
-	Weather() throws IOException {
+	Weather() throws IOException, ParseException {
 		ForecastParser FP = new ForecastParser(Space, Grib);
 	}
 }

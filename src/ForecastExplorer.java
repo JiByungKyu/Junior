@@ -5,26 +5,26 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class ForecastExplorer extends ApiExplorer {
-	String Grib = "ForecastGrib";// ½ÇÈ²Á¤º¸
-	String Space = "ForecastSpaceData";// µ¿³×¿¹º¸
+	String Grib = "ForecastGrib";// ì‹¤í™©
+	String Space = "ForecastSpaceData";// ì˜ˆë³´
 
 	ForecastExplorer() throws IOException {
 		super();
 	}
 
-	private int Make_GBTime() {// ½ÇÈ² ¿¹º¸ ½Ã°£
+	private String Make_GBTime() {// ì‹¤í™© ê¸°ì¤€ ì‹œê°„
 		int Btime = currentTime();
-		if (Btime % 100 <= 40) {// API Á¦°ø½Ã°£ Àü
-			if (Btime < 100) {// 00½ÃÀÇ °æ¿ì
+		if (Btime % 100 <= 40) {// API ê¸°ì¤€ ì‹œê°„
+			if (Btime < 100) {// 00ì‹œì˜ ê²½ìš°
 				Btime += 2300;
 			} else {
 				Btime -= 100;
 			}
 		}
-		return (Btime / 100) * 100;
+		return String.format("%04d", (Btime / 100) * 100);
 	}
 
-	private int Make_SBTime() {
+	private String Make_SBTime() {
 		int Btime = currentTime() / 100;
 		if (Btime % 3 == 2)
 			;
@@ -34,7 +34,7 @@ public class ForecastExplorer extends ApiExplorer {
 			Btime -= 1;
 		}
 
-		return Btime * 100;
+		return String.format("%04d", Btime * 100);
 	}
 
 	public String Grib_Request() {
@@ -42,9 +42,9 @@ public class ForecastExplorer extends ApiExplorer {
 		forecastURL.append("?ServiceKey=" + FCserviceKey);// URLEncoder.encode(serviceKey,"UTF-8"));
 		forecastURL.append("&_type=json");
 		forecastURL.append("&base_date=" + currentDate() + "&base_time=" + Make_GBTime());
-		forecastURL.append("&nx=60" + "&ny=127");// Ãæ¹«·Î
-		forecastURL.append("&numOfRows=999");/* °Ë»ö°Ç¼ö */
-		forecastURL.append("&pageNo=1"); /* ÆäÀÌÁö ¹øÈ£ */
+		forecastURL.append("&nx=60" + "&ny=127");// ì¶©ë¬´ë¡œ
+		forecastURL.append("&numOfRows=999");/* ê²€ìƒ‰í•  ì¤„ ìˆ˜ */
+		forecastURL.append("&pageNo=1"); /* ë‚˜íƒ€ë‚¼ íŽ˜ì´ì§€ */
 		return forecastURL.toString();
 	}
 
@@ -53,9 +53,9 @@ public class ForecastExplorer extends ApiExplorer {
 		forecastURL.append("?ServiceKey=" + FCserviceKey);// URLEncoder.encode(serviceKey,"UTF-8"));
 		forecastURL.append("&_type=json");
 		forecastURL.append("&base_date=" + currentDate() + "&base_time=" + Make_SBTime());
-		forecastURL.append("&nx=60" + "&ny=127");// Ãæ¹«·Î
-		forecastURL.append("&numOfRows=999");/* °Ë»ö°Ç¼ö */
-		forecastURL.append("&pageNo=1"); /* ÆäÀÌÁö ¹øÈ£ */
+		forecastURL.append("&nx=60" + "&ny=127");// ì¶©ë¬´ë¡œ
+		forecastURL.append("&numOfRows=999");/* ê²€ìƒ‰í•  ì¤„ ìˆ˜ */
+		forecastURL.append("&pageNo=1"); /* ë‚˜íƒ€ë‚¼ íŽ˜ì´ì§€ */
 		return forecastURL.toString();
 	}
 
@@ -83,7 +83,7 @@ public class ForecastExplorer extends ApiExplorer {
 		}
 		rd.close();
 		conn.disconnect();
-		// System.out.println(forecasturl.toString());
+		System.out.println(forecasturl.toString());
 		return sb.toString();
 	}
 }

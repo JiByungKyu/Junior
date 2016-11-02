@@ -1,48 +1,45 @@
 import java.io.IOException;
-import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Iterator;
 
-import javax.json.Json;
-import javax.json.stream.JsonParser;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class ForecastParser {
 	protected String param;
-	private boolean isSpace = true;//
+	private boolean isSpace = true;// 실황 정보
 	ForecastExplorer FE = new ForecastExplorer();
+	String str_grib;
+	String str_space;
+	JSONParser jsonParser;
 
-	ForecastParser(WeatherData Space[], WeatherData Grib) throws IOException {
-
-		System.out.println(FE.send(isSpace));
-		System.out.println(FE.send(!isSpace));
-		GribParsing();
-
+	ForecastParser(HashMap<String, String> mapSpace[], HashMap<String, String> mapGrib)
+			throws IOException, ParseException {
+		str_grib = FE.send(!isSpace);
+		str_space = FE.send(isSpace);
+		jsonParser = new JSONParser();
+		System.out.println(str_grib);
+		// System.out.println(str_space);
+		GribParsing(mapGrib);
 	}
 
-	private void GribParsing() throws IOException {
-		JsonParser parser = Json.createParser(new StringReader(FE.send(!isSpace)));
-		while (parser.hasNext()) {
-			JsonParser.Event event = parser.next();
-			switch (event) {
-			case START_ARRAY:
-			case END_ARRAY:
-			case START_OBJECT:
-			case END_OBJECT:
-			case VALUE_FALSE:
-			case VALUE_NULL:
-			case VALUE_TRUE:
-				System.out.println(event.toString());
-				break;
-			case KEY_NAME:
-				System.out.print(event.toString() + " " + parser.getString() + " - ");
-				break;
-			case VALUE_STRING:
-			case VALUE_NUMBER:
-				System.out.println(event.toString() + " " + parser.getString());
-				break;
-			default:
-				break;
-			}
-
+	private void GribParsing(HashMap<String, String> mapGrib) throws IOException, ParseException {
+		JSONObject json = (JSONObject) jsonParser.parse(str_grib);
+		JSONObject resp = (JSONObject) json.get("response");
+		JSONObject body = (JSONObject) resp.get("body");
+		JSONObject items = (JSONObject) body.get("items");
+		JSONArray item = (JSONArray) items.get("item");
+		for (int i = 0; i < item.size(); i++) {
+			JSONObject weatherObject = (JSONObject) item.get(i);
+			mapGrib.put(weatherObject.get("category").toString(), weatherObject.get("obsrValue").toString());
+		}
+		Iterator<String> iter = mapGrib.keySet().iterator();
+		while (iter.hasNext()) {
+			String key = (String) iter.next();
+			System.out.print("key=" + key);
+			System.out.println(" value=" + mapGrib.get(key));
 		}
 	}
-
 }
