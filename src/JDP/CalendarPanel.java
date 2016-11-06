@@ -20,10 +20,8 @@ public class CalendarPanel extends JPanel {
 	JLabel label;
 	JTable tb_dateView;
 	JTable tb_weekLabel;
-	
 	DefaultTableModel dtm_weekTable;
 	DefaultTableModel dtm_dateTable;
-	
 	String[] weekColumn = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
 	
 	public CalendarPanel(){
@@ -119,12 +117,10 @@ public class CalendarPanel extends JPanel {
 	}
 	
 	protected void update() {
-		
         label.setText((calendar.get(Calendar.YEAR) + "년, ") + (calendar.get(Calendar.MONTH) + 1) + "월");
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         int dayWeek = calendar.get(Calendar.DAY_OF_WEEK);
         int endDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
- 
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
                 tb_dateView.setValueAt("", i, j);

@@ -12,6 +12,9 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 public class WeatherPanel extends JPanel {
+	String location = "충무로";
+	String rain = "강수확률: ";
+	
 	JPanel pn_temp;
 	JTextArea ta_weatherInfo;
 	JTextArea ta_tempNow;
@@ -37,7 +40,9 @@ public class WeatherPanel extends JPanel {
 		ta_weatherInfo.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		ta_weatherInfo.setEditable(false);
 		ta_weatherInfo.setBackground(Color.WHITE);
-		ta_weatherInfo.setText("충무로\n맑음\n강수 확률: 0%");
+		ta_weatherInfo.setText("충무로\n맑음\n강수 확률: 0%       ");
+		//ta_weatherInfo.setText(location);
+		//ta_weatherInfo.append(weatherType);
 		
 		pn_temp.setLayout(new BorderLayout());
 		pn_temp.setSize(15, 15);
