@@ -195,8 +195,4 @@ public class FilterWindow extends JFrame implements ActionListener{
 			}
 		}
 	}
-	
-	
-	
-	
 }

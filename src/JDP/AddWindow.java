@@ -1,7 +1,9 @@
 package JDP;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -56,12 +58,16 @@ public class AddWindow extends JFrame implements ActionListener{
 	/**
 	 * Method used to create the Add window
 	 */
-	AddWindow()
+	public AddWindow()
 	{	
+		Dimension dimen = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLayout(new BorderLayout());
 		this.setTitle("Add Task");
 		this.setSize(350,220);
 		this.setResizable(false);
+		this.setLocation((int)dimen.getWidth()/2 - this.getWidth()/2, (int)dimen.getHeight()/2 - this.getHeight()/2);
+		
+		
 		
 		taskName = new JLabel("Task Name: ");
 		startDate = new JLabel("Start Date: ");
@@ -79,7 +85,7 @@ public class AddWindow extends JFrame implements ActionListener{
 		startDatePanel.add(monthCombo);
 		startDatePanel.add(yearCombo);
 		
-		endDatePanel 	 = new JPanel(new GridLayout(1,3));
+		endDatePanel = new JPanel(new GridLayout(1,3));
 		endDayCombo = new JComboBox(day);
 		endMonthCombo = new JComboBox(month);
 		endYearCombo = new JComboBox(year);
@@ -102,7 +108,6 @@ public class AddWindow extends JFrame implements ActionListener{
 		mainPanel.add(note);			mainPanel.add(noteDisplay);
 		this.getContentPane().add(BorderLayout.CENTER, mainPanel);	//Add the panel to the CENTER of the BorderLayout
 		
-		
 		add = new JButton("Add");
 		cancel = new JButton("Cancel");
 		add.addActionListener(this);
@@ -116,8 +121,7 @@ public class AddWindow extends JFrame implements ActionListener{
 		/**
 		 * Method used to clear the text fields when the window is closed
 		 */
-		this.addWindowListener(new WindowAdapter()
-		{
+		this.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent we)
 		    {
 		        clearText();
@@ -136,11 +140,11 @@ public class AddWindow extends JFrame implements ActionListener{
 		
 		dayCombo.setSelectedItem("1");
 		monthCombo.setSelectedItem("1");
-		yearCombo.setSelectedItem("2012");
+		yearCombo.setSelectedItem("2016");
 
 		endDayCombo.setSelectedItem("1");
-		endMonthCombo.setSelectedItem("1");
-		endYearCombo.setSelectedItem("2012");
+		endMonthCombo.setSelectedItem("1"); 
+		endYearCombo.setSelectedItem("2016");
 		
 		priorityCombo.setSelectedItem("Other");
 		percCompDisplay.setText("");
@@ -174,6 +178,7 @@ public class AddWindow extends JFrame implements ActionListener{
 							new myDate(Integer.parseInt((String) endDayCombo.getSelectedItem()), Integer.parseInt((String) endMonthCombo.getSelectedItem()), Integer.parseInt((String) endYearCombo.getSelectedItem())),
 							(String) priorityCombo.getSelectedItem(), Integer.parseInt(percCompDisplay.getText()), (String) categoryCombo.getSelectedItem(), noteDisplay.getText()));
 					ToDoList.listModel.addElement(ToDoList.myTasks.get(ToDoList.myTasks.size()-1).getName());
+					TaskPanel.listModel.addElement(ToDoList.myTasks.get(ToDoList.myTasks.size()-1).getName());
 					clearText();
 					ToDoList.add1.setVisible(false);
 					ToDoList.exported = false;
@@ -191,5 +196,4 @@ public class AddWindow extends JFrame implements ActionListener{
 			ToDoList.add1.setVisible(false);
 		}
 	}
-	
 }

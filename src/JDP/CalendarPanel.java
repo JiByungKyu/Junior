@@ -16,13 +16,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class CalendarPanel extends JPanel {
-	Calendar calendar;
-	JLabel label;
-	JTable tb_dateView;
-	JTable tb_weekLabel;
-	DefaultTableModel dtm_weekTable;
-	DefaultTableModel dtm_dateTable;
-	String[] weekColumn = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
+	private Calendar calendar;
+	private JLabel label;
+	private JTable tb_dateView;
+	private JTable tb_weekLabel;
+	private DefaultTableModel dtm_weekTable;
+	private DefaultTableModel dtm_dateTable;
+	private String[] weekColumn = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
 	
 	public CalendarPanel(){
 		calendar = Calendar.getInstance();

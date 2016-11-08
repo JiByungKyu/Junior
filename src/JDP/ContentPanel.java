@@ -9,8 +9,8 @@ import javax.swing.JTextArea;
 
 public class ContentPanel extends JPanel {
 	//field
-	JPanel pn_RightPanel;
-	JTextArea empty;
+	private JPanel pn_RightPanel;
+	private JTextArea empty;
 	protected static CalendarPanel pn_calendar;
 	protected static WeatherPanel pn_weather;
 	protected static TaskPanel pn_task;

@@ -13,17 +13,13 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 
-import task.AddWindow;
-import task.EditWindow;
-import task.ToDoList;
-
-public class TaskPanel extends JPanel implements ActionListener,Runnable {
+public class TaskPanel extends JPanel implements ActionListener {
 	//field
 	protected JPanel pn_taskList;
 	protected JPanel pn_button;
 	protected JPanel pn_showbtn;
-	protected JList taskList;
-	protected DefaultListModel listModel;
+	protected static JList taskList;
+	protected static DefaultListModel listModel;
 	protected JButton btn_add;
 	protected JButton btn_delete;
 	protected JButton btn_modify;
@@ -73,12 +69,6 @@ public class TaskPanel extends JPanel implements ActionListener,Runnable {
 	
 		showTask();
 	}
-	
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -86,20 +76,18 @@ public class TaskPanel extends JPanel implements ActionListener,Runnable {
 		String event = e.getActionCommand();
 		if(event.equals("일정 추가")){
 			toDoList.add1.setVisible(true);
-			showTask();
+			
 		}
 		else if(event.equals("수정")){
-			toDoList.edit();
-			showTask();
+			toDoList.edit(taskList.getSelectedIndex());
 		}
 		else if(event.equals("삭제")){
-			toDoList.delete();
-			showTask();
+			toDoList.delete(taskList.getSelectedIndex());
 		}
 		else if(event.equals("일정 모두 보기")){
 			toDoList.setVisible(true);
-			showTask();
 		}
+		showTask();
 	}
 	
 	public void showTask(){
@@ -108,7 +96,7 @@ public class TaskPanel extends JPanel implements ActionListener,Runnable {
 				listModel.addElement(toDoList.getTask().get(i).getName());
 		}
 		else{
-			listModel.removeAllElements();;
+			listModel.removeAllElements();
 			for(int i = 0; i < toDoList.getTask().size(); i++){
 				listModel.addElement(toDoList.getTask().get(i).getName());
 			}	

@@ -1,17 +1,18 @@
 package JDP;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Vector;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -36,7 +37,6 @@ import javax.swing.event.ListSelectionListener;
  * @author Charles Henry
  * @version 1.00 2011/04/02
  */
-
 
 public class ToDoList extends JFrame implements ActionListener {
 	
@@ -90,16 +90,17 @@ public class ToDoList extends JFrame implements ActionListener {
 	protected static EditWindow edit1 = new EditWindow();
 	protected static FilterWindow filter1 = new FilterWindow();
 	
-	protected static ArrayList<Task> myTasks = new ArrayList<Task>();	//array used to store task Objects from the Task class
+	protected static Vector<Task> myTasks = new Vector<Task>();	//array used to store task Objects from the Task class
 	
 	public ToDoList()
 	{
+		Dimension dimen = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLayout(new BorderLayout());
 		this.setTitle("ToDoList Manager");
 		this.setSize(640,260);
 		this.setResizable(false);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);	//Makes the program terminate properly when the close button is pressed
-	
+		this.setLocation((int)dimen.getWidth()/2 - this.getWidth()/2, (int)dimen.getHeight()/2 - this.getHeight()/2);
+		
 		//adding the Menu bar to the window and to the action listener
 		menubar1 = new JMenuBar();						// Makes a new menu bar (now you can add items to this menu...)
 		this.setJMenuBar(menubar1); 					// Attaches the named menubar (menubar1) to the window
@@ -141,7 +142,7 @@ public class ToDoList extends JFrame implements ActionListener {
 		category.setHorizontalAlignment(JTextField.CENTER);
 		note.setHorizontalAlignment(JTextField.CENTER);
 		
-			//make display fields noneditable and white in colour
+			//make display fields noneditable and white in color
 		taskNameDisplay  = new JTextField();	taskNameDisplay.setEditable(false);		taskNameDisplay.setBackground(Color.white);
 		startDateDisplay = new JTextField();	startDateDisplay.setEditable(false);	startDateDisplay.setBackground(Color.white);
 		endDateDisplay   = new JTextField();	endDateDisplay.setEditable(false);		endDateDisplay.setBackground(Color.white);
@@ -198,29 +199,18 @@ public class ToDoList extends JFrame implements ActionListener {
 		
 		listListener myListListener = new listListener();
 		list.addListSelectionListener(myListListener);
-		list.setSelectedIndex(0);		
-		
-		//export tasks on close
-		this.addWindowListener(new WindowAdapter()
-		{
-			/**
-			 * Method used to export tasks when the program is closed
-			 * 
-			 * @ param exported boolean used to show whether the tasks have been saved of not
-			 */
-			public void windowClosing(WindowEvent we)
-		    {
-				if(!exported)	//if tasks are not saved already
-				{
-					exportTasks();
-				}
-		    }
-		});
+		list.setSelectedIndex(0);
 		
 		validate();
-
 	}
 	
+	public Vector<Task> getTask(){
+		return myTasks;
+	}
+	
+	public boolean getExported(){
+		return exported;
+	}
 	/**
 	 * ListListener used monitor JList list selection changes
 	 * @author Charles
@@ -255,18 +245,42 @@ public class ToDoList extends JFrame implements ActionListener {
 		categoryDisplay.setText(myTasks.get(index).getCategory());
 		noteDisplay.setText(myTasks.get(index).getNote());
 	}
-	/**
-	 * Method used to open the edit window
-	 */
-	public void edit()
-	{
-		if(list.getSelectedIndex() < 0)	//if there is no task selected, notify the user
+	
+	public void delete(int index){
+		if(index < 0)	//if not item has been selected on the JList, notify the user
 		{
 			JOptionPane.showMessageDialog(null, "Error, no task selected.");
 		}
 		else
 		{
-			currentEditIndex = list.getSelectedIndex();	//store the current selected task index
+			listenerOn = false;										//disable the JList Listener while editing
+			myTasks.remove(index);				//remove the task from the array
+			listModel.remove(index);				//remove the task from the JList
+			listenerOn = true;										//enable the JList listener
+			exported = false;										//set exported to false as data has been changed
+			JOptionPane.showMessageDialog(null, "Task deleted.");
+			//clear Task display text
+			taskNameDisplay.setText("");
+			startDateDisplay.setText("");
+			endDateDisplay.setText("");
+			priorityDisplay.setText("");
+			percCompDisplay.setText("");
+			categoryDisplay.setText("");
+			noteDisplay.setText("");
+		}
+	}
+	/**
+	 * Method used to open the edit window
+	 */
+	public void edit(int index)
+	{
+		if(index < 0)	//if there is no task selected, notify the user
+		{
+			JOptionPane.showMessageDialog(null, "Error, no task selected.");
+		}
+		else
+		{
+			currentEditIndex = index;	//store the current selected task index
 			EditWindow.populate();						//populate EditWindow with task data
 			listenerOn = false;							//Disable the listListener while editing the list
 			edit1.setVisible(true);	
@@ -279,7 +293,7 @@ public class ToDoList extends JFrame implements ActionListener {
 	{
 		try
 		{
-			File f = new File("C:\\ToDoList\\ToDoListTasks.txt");
+			File f = new File("ToDoListTasks.txt");
 			Scanner textFile;
 			try {
 				textFile = new Scanner(f);
@@ -319,7 +333,7 @@ public class ToDoList extends JFrame implements ActionListener {
 	{
 		try 
 		{
-			PrintWriter p = new PrintWriter("C:\\ToDoList\\ToDoListTasks.txt");		//create text file
+			PrintWriter p = new PrintWriter("ToDoListTasks.txt");		//create text file
 			
 			exportText = "";										//empty the string for new input
 			int counter = 0;										//counter used to count how many tasks have been exported
@@ -351,6 +365,7 @@ public class ToDoList extends JFrame implements ActionListener {
 		if(e.getSource() == addItem)
 		{
 			add1.setVisible(true);	//open the add window
+			listModel.addElement(myTasks.get(myTasks.size()-1).getName());
 		}
 		if(e.getSource() == add)
 		{
@@ -358,35 +373,15 @@ public class ToDoList extends JFrame implements ActionListener {
 		}
 		if(e.getSource() == delItem)
 		{
-			if(list.getSelectedIndex() < 0)	//if not item has been selected on the JList, notify the user
-			{
-				JOptionPane.showMessageDialog(null, "Error, no task selected.");
-			}
-			else
-			{
-				listenerOn = false;										//disable the JList Listener while editing
-				myTasks.remove(list.getSelectedIndex());				//remove the task from the array
-				listModel.remove(list.getSelectedIndex());				//remove the task from the JList
-				listenerOn = true;										//enable the JList listener
-				exported = false;										//set exported to false as data has been changed
-				JOptionPane.showMessageDialog(null, "Task deleted.");
-				//clear Task display text
-				taskNameDisplay.setText("");
-				startDateDisplay.setText("");
-				endDateDisplay.setText("");
-				priorityDisplay.setText("");
-				percCompDisplay.setText("");
-				categoryDisplay.setText("");
-				noteDisplay.setText("");
-			}
+			delete(list.getSelectedIndex());
 		}
 		if(e.getSource() == edit)
 		{
-			edit();
+			edit(list.getSelectedIndex());
 		}
 		if(e.getSource() == editSelItem)
 		{
-			edit();
+			edit(list.getSelectedIndex());
 		}
 		if(e.getSource() == importItem)
 		{
@@ -414,9 +409,7 @@ public class ToDoList extends JFrame implements ActionListener {
 				ToDoList.listModel.remove(i);
 				ToDoList.listModel.add(i, myTasks.get(i).getName());
 				ToDoList.listenerOn = true;
-			}
-			
+			}	
 		}
 	}
-	
 }

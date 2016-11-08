@@ -1,7 +1,9 @@
 package JDP;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -55,12 +57,14 @@ public class EditWindow extends JFrame implements ActionListener{
 	private static String[] year = {"2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020"};
 	
 	
-	EditWindow()
+	public EditWindow()
 	{
+		Dimension dimen = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLayout(new BorderLayout());
 		this.setTitle("Edit Task");
 		this.setSize(350,220);
 		this.setResizable(false);
+		this.setLocation((int)dimen.getWidth()/2 - this.getWidth()/2, (int)dimen.getHeight()/2 - this.getHeight()/2);
 		
 		taskName = new JLabel("Task Name: ");
 		startDate = new JLabel("Start Date: ");
@@ -122,7 +126,6 @@ public class EditWindow extends JFrame implements ActionListener{
 		        ToDoList.listenerOn = true;	//turn the JList listener on as editing has ended
 		    }
 		});
-		
 		
 		validate();
 	}
@@ -193,9 +196,5 @@ public class EditWindow extends JFrame implements ActionListener{
 			ToDoList.listenerOn = true;
 			ToDoList.edit1.setVisible(false);
 		}
-	}
-	
-	
-	
-	
+	}	
 }

@@ -71,5 +71,4 @@ public class myDate {
 	public String toString() {
 		return day + "/" + month + "/" + year;
 	}
-	
 }
