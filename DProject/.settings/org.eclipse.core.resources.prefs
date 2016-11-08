@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
-encoding//src/ContentFrame.java=UTF-8
-encoding//src/MainFrame.java=UTF-8
+encoding//src/JDP/ContentFrame.java=UTF-8
+encoding//src/JDP/ForecastParser.java=UTF-8
+encoding//src/JDP/MainFrame.java=UTF-8
