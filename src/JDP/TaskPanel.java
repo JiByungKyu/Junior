@@ -4,10 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.Calendar;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -23,17 +19,15 @@ import task.ToDoList;
 
 public class TaskPanel extends JPanel implements ActionListener,Runnable {
 	//field
-	JPanel pn_taskList;
-	JPanel pn_button;
-	JPanel pn_showbtn;
-	JList taskList;
-	DefaultListModel listModel;
-	JButton btn_add;
-	JButton btn_delete;
-	JButton btn_modify;
-	JButton btn_showAll;
-	AddWindow addTask;
-	EditWindow editTask;
+	protected JPanel pn_taskList;
+	protected JPanel pn_button;
+	protected JPanel pn_showbtn;
+	protected JList taskList;
+	protected DefaultListModel listModel;
+	protected JButton btn_add;
+	protected JButton btn_delete;
+	protected JButton btn_modify;
+	protected JButton btn_showAll;
 	ToDoList toDoList;
 	
 	//method
@@ -47,8 +41,6 @@ public class TaskPanel extends JPanel implements ActionListener,Runnable {
 		btn_modify = new JButton("수정");
 		btn_delete = new JButton("삭제");
 		btn_showAll = new JButton("일정 모두 보기");
-		addTask = new AddWindow();
-		editTask = new EditWindow();
 		toDoList = new ToDoList();	
 		
 		setLayout(new BorderLayout());
@@ -60,7 +52,7 @@ public class TaskPanel extends JPanel implements ActionListener,Runnable {
 		scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		taskList.setVisibleRowCount(10);//10줄까지만 보이도록 설정
-		taskList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		taskList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		pn_taskList.setBackground(Color.WHITE);
 		pn_taskList.add(scroller);
 		
@@ -80,25 +72,6 @@ public class TaskPanel extends JPanel implements ActionListener,Runnable {
 		add(pn_showbtn,"South");
 	
 		showTask();
-		//export tasks on close
-				this.addWindowListener(new WindowAdapter(){
-					/**
-					 * Method used to export tasks when the program is closed
-					 * 
-					 * @ param exported boolean used to show whether the tasks have been saved of not
-					 */
-					public void windowClosing(WindowEvent we)
-				    {
-						if(!toDoList.getExported())	//if tasks are not saved already
-						{
-							toDoList.exportTasks();
-						}
-				    }
-				});
-	}
-
-	public void export(){
-		toDoList.exportTasks();
 	}
 	
 	@Override
@@ -111,19 +84,34 @@ public class TaskPanel extends JPanel implements ActionListener,Runnable {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String event = e.getActionCommand();
-		if(event.equals("일정 추가"))
-			addTask.setVisible(true);
-		else if(event.equals("수정"))
-			editTask.setVisible(true);
-		else if(event.equals("삭제"))
-			;
+		if(event.equals("일정 추가")){
+			toDoList.add1.setVisible(true);
+			showTask();
+		}
+		else if(event.equals("수정")){
+			toDoList.edit();
+			showTask();
+		}
+		else if(event.equals("삭제")){
+			toDoList.delete();
+			showTask();
+		}
 		else if(event.equals("일정 모두 보기")){
 			toDoList.setVisible(true);
+			showTask();
 		}
 	}
 	
 	public void showTask(){
-		for(int i = 0; i < toDoList.getTask().size(); i++)
-			listModel.addElement(toDoList.getTask().get(i).getName());
+		if(listModel.isEmpty()){
+			for(int i = 0; i < toDoList.getTask().size(); i++)
+				listModel.addElement(toDoList.getTask().get(i).getName());
+		}
+		else{
+			listModel.removeAllElements();;
+			for(int i = 0; i < toDoList.getTask().size(); i++){
+				listModel.addElement(toDoList.getTask().get(i).getName());
+			}	
+		}
 	}
 }

@@ -9,32 +9,31 @@ import javax.swing.JTextArea;
 
 public class ContentPanel extends JPanel {
 	//field
-	JPanel pn_RightSide;
+	JPanel pn_RightPanel;
 	JTextArea empty;
-	CalendarPanel pn_calendar;
-	WeatherPanel pn_weather;
-	TaskPanel pn_task;
+	protected static CalendarPanel pn_calendar;
+	protected static WeatherPanel pn_weather;
+	protected static TaskPanel pn_task;
 	
 	//method
 	public ContentPanel(){
-		pn_RightSide = new JPanel();
+		pn_RightPanel = new JPanel();
 		pn_calendar = new CalendarPanel();
 		pn_weather = new WeatherPanel();
 		pn_task = new TaskPanel();
 		empty = new JTextArea();
 		
 		empty.setEditable(false);
-		empty.setText("\n\n");
-		pn_weather.add(empty);
+		empty.setText("\n");
 		setBackground(Color.WHITE);
 		setLayout(new FlowLayout());
 		
-		pn_RightSide.setLayout(new BorderLayout());
-		pn_RightSide.add(BorderLayout.NORTH, pn_weather);
-		pn_RightSide.add(BorderLayout.CENTER, empty);
-		pn_RightSide.add(BorderLayout.SOUTH, pn_task);
+		pn_RightPanel.setLayout(new BorderLayout());
+		pn_RightPanel.add(BorderLayout.NORTH, pn_weather);
+		pn_RightPanel.add(BorderLayout.CENTER, empty);
+		pn_RightPanel.add(BorderLayout.SOUTH, pn_task);
 		
 		add(pn_calendar,"West");
-		add(pn_RightSide,"East");
+		add(pn_RightPanel,"East");
 	}
 }

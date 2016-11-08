@@ -18,17 +18,15 @@ public class WeatherPanel extends JPanel {
 	JPanel pn_temp;
 	JTextArea ta_weatherInfo;
 	JTextArea ta_tempNow;
-	JTextArea ta_temp;
 	ImageIcon weatherImg;
 	Image useImg;
 	JLabel img;
 	
-	WeatherPanel(){
+	WeatherPanel(){		
 		setBackground(Color.WHITE);
 		pn_temp = new JPanel();
 		ta_weatherInfo = new JTextArea();
 		ta_tempNow = new JTextArea();
-		ta_temp = new JTextArea();
 		
 		weatherImg = new ImageIcon("sunny.jpg");
 		useImg = weatherImg.getImage();
@@ -40,19 +38,17 @@ public class WeatherPanel extends JPanel {
 		ta_weatherInfo.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		ta_weatherInfo.setEditable(false);
 		ta_weatherInfo.setBackground(Color.WHITE);
-		ta_weatherInfo.setText("충무로\n맑음\n강수 확률: 0%       ");
-		//ta_weatherInfo.setText(location);
-		//ta_weatherInfo.append(weatherType);
+		ta_weatherInfo.setText(location + "\n");
+		ta_weatherInfo.append("맑음\n");
+		ta_weatherInfo.append(rain);
+		ta_weatherInfo.append("%       ");
 		
 		pn_temp.setLayout(new BorderLayout());
 		pn_temp.setSize(15, 15);
 		ta_tempNow.setFont(new Font("맑은 고딕", Font.BOLD, 30));
 		ta_tempNow.setText("8°C");
-		ta_temp.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		ta_temp.setText("11°/6°");
 		
 		pn_temp.add(BorderLayout.NORTH, ta_tempNow);
-		pn_temp.add(BorderLayout.CENTER, ta_temp);
 		
 		add("LEFT", img);
 		add("CENTER", ta_weatherInfo);

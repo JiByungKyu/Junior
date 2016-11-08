@@ -85,7 +85,7 @@ public class AddWindow extends JFrame implements ActionListener{
 		startDatePanel.add(monthCombo);
 		startDatePanel.add(yearCombo);
 		
-		endDatePanel 	 = new JPanel(new GridLayout(1,3));
+		endDatePanel = new JPanel(new GridLayout(1,3));
 		endDayCombo = new JComboBox(day);
 		endMonthCombo = new JComboBox(month);
 		endYearCombo = new JComboBox(year);
@@ -108,7 +108,6 @@ public class AddWindow extends JFrame implements ActionListener{
 		mainPanel.add(note);			mainPanel.add(noteDisplay);
 		this.getContentPane().add(BorderLayout.CENTER, mainPanel);	//Add the panel to the CENTER of the BorderLayout
 		
-		
 		add = new JButton("Add");
 		cancel = new JButton("Cancel");
 		add.addActionListener(this);
@@ -122,8 +121,7 @@ public class AddWindow extends JFrame implements ActionListener{
 		/**
 		 * Method used to clear the text fields when the window is closed
 		 */
-		this.addWindowListener(new WindowAdapter()
-		{
+		this.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent we)
 		    {
 		        clearText();

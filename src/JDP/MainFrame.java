@@ -20,5 +20,17 @@ public class MainFrame extends JFrame {
 		add(content);//중앙에 content 추가
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
+		//export tasks on close
+		addWindowListener(new WindowAdapter(){
+			/**
+			 * Method used to export tasks when the program is closed
+			 * 
+			 * @ param exported boolean used to show whether the tasks have been saved of not
+			 */
+			public void windowClosing(WindowEvent we)
+			    {
+					content.pn_task.toDoList.exportTasks();
+			    }
+		});
 	}
 }
