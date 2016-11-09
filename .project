@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>DProject</name>
+=======
+	<name>Project</name>
+>>>>>>> de47e3dd17ca76574c9ffcf459a62b7d5e5937e3
 	<comment></comment>
 	<projects>
 	</projects>
