@@ -1,0 +1,1 @@
+INDEX VERSION 1.126+C:\Users\ByungKyu\Desktop\학교\컴퓨터공학\2016-2\주디프\프로젝트\.metadata\.plugins\org.eclipse.jdt.core
