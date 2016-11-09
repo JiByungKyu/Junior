@@ -22,8 +22,25 @@ public class ForecastParser {
 	int spaceTime;
 	int noTime;
 	int SIZE[] = { 11, 9, 12, 9, 11, 10, 11, 9 };
-
-	ForecastParser(HashMap<String, String>[] mapSpace) throws IOException, ParseException {
+	HashMap<String, String> mapSpace[];
+	HashMap<String, String> mapGrib ;
+	ForecastParser() throws IOException{
+		str_Space = FE.send(isSpace);
+		jsonParser = new JSONParser();
+		System.out.println(str_Space);
+		spaceTime=FE.make_SpaceTime();
+		noTime=get_NoTime(spaceTime);
+		mapSpace=new HashMap[noTime];
+		for(int i=0;i<noTime;i++)
+			mapSpace[i]=new HashMap<String,String>();
+		spaceParsing(mapSpace);
+		mapGrib=new HashMap<String,String>();
+		str_Grib = FE.send(!isSpace);
+		jsonParser = new JSONParser();
+		System.out.println(str_Grib);
+		gribParsing(mapGrib);
+	}
+	/*ForecastParser(HashMap<String, String>[] mapSpace) throws IOException, ParseException {
 		str_Space = FE.send(isSpace);
 		jsonParser = new JSONParser();
 		System.out.println(str_Space);
@@ -41,6 +58,7 @@ public class ForecastParser {
 		System.out.println(str_Grib);
 		gribParsing(mapGrib);
 	}
+	*/
 	private void gribParsing(HashMap<String, String> mapGrib) throws IOException {
 		/*
 		 * Date : 2016.11.05 
@@ -78,7 +96,7 @@ public class ForecastParser {
 			innerMap.put(weatherObject.get("category").toString(), weatherObject.get("fcstValue").toString()); // put
 		}
 	}
-	private int get_NoTime(int baseTime){
+	int get_NoTime(int baseTime){
 		int noTime;	
 		if(baseTime==200)
 			noTime= 15;
