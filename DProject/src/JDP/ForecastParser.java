@@ -40,25 +40,7 @@ public class ForecastParser {
 		System.out.println(str_Grib);
 		gribParsing(mapGrib);
 	}
-	/*ForecastParser(HashMap<String, String>[] mapSpace) throws IOException, ParseException {
-		str_Space = FE.send(isSpace);
-		jsonParser = new JSONParser();
-		System.out.println(str_Space);
-		spaceTime=FE.make_SpaceTime();
-		noTime=get_NoTime(spaceTime);
-		mapSpace=new HashMap[noTime];
-		for(int i=0;i<noTime;i++)
-			mapSpace[i]=new HashMap<String,String>();
-		spaceParsing(mapSpace);
-	}
-
-	ForecastParser(HashMap<String, String> mapGrib) throws IOException {
-		str_Grib = FE.send(!isSpace);
-		jsonParser = new JSONParser();
-		System.out.println(str_Grib);
-		gribParsing(mapGrib);
-	}
-	*/
+	
 	private void gribParsing(HashMap<String, String> mapGrib) throws IOException {
 		/*
 		 * Date : 2016.11.05 
@@ -106,6 +88,10 @@ public class ForecastParser {
 		return noTime;
 	
 	}
+	public HashMap<String, String>[] getmapSpace(){
+		return mapSpace;
+	}
+	
 	private void spaceParsing(HashMap<String, String>[] mapSpace) throws IOException {
 		JSONObject json;
 		int item_Index = 0;
