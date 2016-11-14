@@ -62,7 +62,6 @@ public class myDate {
 	public void setYear(int year) {
 		this.year = year;
 	}
-	
 	@Override
 	/**
 	 * Method used to return a textual representation of this date instance

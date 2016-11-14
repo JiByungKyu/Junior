@@ -32,14 +32,16 @@ import javax.swing.event.ListSelectionListener;
 
 /**
  * @ToDoList.java - A Java based Task Manager used to manage simple tasks
- *
- *
  * @author Charles Henry
  * @version 1.00 2011/04/02
  */
 
 public class ToDoList extends JFrame implements ActionListener {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected static JList list;
 	protected static DefaultListModel listModel;
 	private static JScrollPane scrollPane;

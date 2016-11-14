@@ -3,31 +3,46 @@ package JDP;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.Calendar;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-public class CalendarPanel extends JPanel {
+public class CalendarPanel extends JPanel implements ActionListener, MouseWheelListener {
+	/**
+	 * 한기훈 11/15
+	 */
+	private static final long serialVersionUID = 1L;
 	private Calendar calendar;
 	private JLabel label;
+	private JPanel pn_month;
 	private JTable tb_dateView;
 	private JTable tb_weekLabel;
+	private JButton btn_leftShift;
+	private JButton btn_rightShift;
+	private JButton btn_todayShift;
 	private DefaultTableModel dtm_weekTable;
 	private DefaultTableModel dtm_dateTable;
 	private String[] weekColumn = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
 	
 	public CalendarPanel(){
+		
 		calendar = Calendar.getInstance();
 		label = new JLabel();
-		
+		pn_month = new JPanel(new BorderLayout());
 		dtm_weekTable = new DefaultTableModel(0,7);
 		dtm_dateTable = new DefaultTableModel(6,7);
 		
@@ -37,9 +52,33 @@ public class CalendarPanel extends JPanel {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setFont(new Font("맑은 고딕", Font.BOLD, 20));
         label.setBounds(70, 10, 384, 54);
-        add(label);
-
-		add(label,BorderLayout.NORTH);
+        
+        pn_month.setBackground(Color.WHITE);
+        pn_month.add(label,BorderLayout.CENTER);
+		
+		
+		btn_leftShift = new JButton("<");
+		btn_leftShift.setBackground(Color.WHITE);
+		btn_leftShift.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		btn_leftShift.setBorder(new EmptyBorder(5,5,5,5));
+		btn_leftShift.addActionListener(this);
+		
+		btn_rightShift = new JButton(">");
+		btn_rightShift.setBackground(Color.WHITE);
+		btn_rightShift.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		btn_rightShift.setBorder(new EmptyBorder(5,5,5,5));
+		btn_rightShift.addActionListener(this);
+		
+		btn_todayShift = new JButton("Today");
+		btn_todayShift.setBackground(Color.WHITE);
+		btn_todayShift.setBorder(new EmptyBorder(5,5,5,5));
+		btn_todayShift.setFont(new Font("맑은 고딕", Font.BOLD, 10));
+		btn_todayShift.addActionListener(this);
+		
+		pn_month.add(btn_leftShift, BorderLayout.WEST);
+		pn_month.add(btn_rightShift,BorderLayout.EAST);
+		pn_month.add(btn_todayShift, BorderLayout.SOUTH);
+		
 		tb_dateView = new JTable(dtm_dateTable) {
             private static final long serialVersionUID = 1L;
             
@@ -87,16 +126,16 @@ public class CalendarPanel extends JPanel {
         tb_weekLabel.getColumnModel().getColumn(5).setCellRenderer(center);
         tb_weekLabel.getColumnModel().getColumn(0).setCellRenderer(sunRed);
         tb_weekLabel.getColumnModel().getColumn(6).setCellRenderer(satBlue);
-        add(tb_weekLabel,BorderLayout.CENTER);
         
 		tb_dateView.setCellSelectionEnabled(true);
 		tb_dateView.setColumnSelectionAllowed(true);
 		tb_dateView.addMouseListener(new MouseAdapter() {
              @Override
              public void mouseClicked(MouseEvent e) {
-                 //do nothing yet 
+            	 
              }
          });
+		tb_dateView.addMouseWheelListener(this);
 		tb_dateView.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
         tb_dateView.setBorder(new LineBorder(new Color(0, 0, 0)));
         tb_dateView.setRowHeight(60);
@@ -111,12 +150,15 @@ public class CalendarPanel extends JPanel {
         tb_dateView.getColumnModel().getColumn(6).setCellRenderer(top);
         tb_dateView.getColumnModel().getColumn(0).setCellRenderer(sunDateRed);
         tb_dateView.getColumnModel().getColumn(6).setCellRenderer(satDateBlue);
-        add(tb_dateView,BorderLayout.SOUTH);
         
-        update();
+        add(tb_weekLabel,BorderLayout.CENTER);
+        add(tb_dateView,BorderLayout.SOUTH);
+        add(pn_month, BorderLayout.NORTH);
+        
+        calendarView();
 	}
 	
-	protected void update() {
+	protected void calendarView() {
         label.setText((calendar.get(Calendar.YEAR) + "년, ") + (calendar.get(Calendar.MONTH) + 1) + "월");
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         int dayWeek = calendar.get(Calendar.DAY_OF_WEEK);
@@ -134,4 +176,32 @@ public class CalendarPanel extends JPanel {
             tb_dateView.setValueAt(" " + day, row, col);
         }
     }
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == btn_todayShift){
+			calendar = Calendar.getInstance();			
+			calendarView();
+		}
+		if(e.getSource() == btn_leftShift){
+			calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) - 1, calendar.get(Calendar.DATE));
+			calendarView();
+		}
+		if(e.getSource() == btn_rightShift){
+			calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DATE));
+			calendarView();
+		}
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		if(e.getWheelRotation() == -1){
+			calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) - 1, calendar.get(Calendar.DATE));
+			calendarView();
+		}
+		if(e.getWheelRotation() == 1){
+			calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DATE));
+			calendarView();
+		}
+	}	
 }

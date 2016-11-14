@@ -1,4 +1,5 @@
 package JDP;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -24,6 +25,10 @@ import javax.swing.JTextField;
  */
 public class EditWindow extends JFrame implements ActionListener{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static JLabel taskName;
 	private static JLabel startDate;
 	private static JLabel endDate;

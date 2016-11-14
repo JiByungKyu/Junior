@@ -1,4 +1,5 @@
 package JDP;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -19,6 +20,10 @@ import javax.swing.JTextField;
  */
 public class FilterWindow extends JFrame implements ActionListener{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static JPanel mainPanel;
 	private static JPanel upperPanel;
 	private static JPanel lowerPanel;
