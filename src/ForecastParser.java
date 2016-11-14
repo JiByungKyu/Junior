@@ -85,7 +85,6 @@ public class ForecastParser {
 			noTime=23-(baseTime/300);
 		}
 		return noTime;
-	
 	}
 	private void spaceParsing(HashMap<String, String>[] mapSpace) throws IOException {
 		JSONObject json;
