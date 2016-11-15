@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -21,6 +22,8 @@ public class MainApp {
 		// = false)
 		NewsSAXParser news = new NewsSAXParser();
 		news.parse();
+		HashMap<String,String> ha=new HashMap<String, String>();
+		ForecastParser a=new ForecastParser(ha);
 	}
 
 }
