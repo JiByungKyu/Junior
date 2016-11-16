@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.HashMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -20,10 +19,13 @@ public class MainApp {
 		// ToDo1.setVisible(true); // Makes the frame visible to the user
 		// (default
 		// = false)
-		NewsSAXParser news = new NewsSAXParser();
-		news.parse();
-		HashMap<String,String> ha=new HashMap<String, String>();
-		ForecastParser a=new ForecastParser(ha);
+		//NewsSAXParser news = new NewsSAXParser();
+		//news.parse();
+		//HashMap<String,String> G[] = new HashMap[30];
+		//for(int a=0;a<30;a++)
+		//		G[a]=new HashMap<String,String>();
+		//ForecastParser b=new ForecastParser();
+		new ForecastMidParser();
 	}
 
 }

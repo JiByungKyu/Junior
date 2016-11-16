@@ -1,15 +1,13 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class ForecastExplorer extends ApiExplorer {
 	String Grib = "ForecastGrib";// 실황
 	String Space = "ForecastSpaceData";// 예보
-
+	String resultSpace;
+	String resultGrib;
 	ForecastExplorer() throws IOException {
-		super();
+		resultSpace=send(Space_Request());
+		resultGrib=send(Grib_Request());
 	}
 
 	private int make_GribTime() {// 실황 기준 시간
@@ -66,7 +64,7 @@ public class ForecastExplorer extends ApiExplorer {
 		int gribDate = make_GribDate();
 		int gribTime = make_GribTime();
 
-		StringBuilder forecastURL = new StringBuilder(FCBaseurl + Grib);
+		StringBuilder forecastURL = new StringBuilder(FCBaseUrl + Grib);
 		forecastURL.append("?ServiceKey=" + FCserviceKey);// URLEncoder.encode(serviceKey,"UTF-8"));
 		forecastURL.append("&_type=json");
 		forecastURL.append("&base_date=" + gribDate + "&base_time=" + String.format("%04d", gribTime));
@@ -80,7 +78,7 @@ public class ForecastExplorer extends ApiExplorer {
 		int spaceDate = make_SpaceDate();
 		int spaceTime = make_SpaceTime();
 
-		StringBuilder forecastURL = new StringBuilder(FCBaseurl + Space);
+		StringBuilder forecastURL = new StringBuilder(FCBaseUrl + Space);
 		forecastURL.append("?ServiceKey=" + FCserviceKey);// URLEncoder.encode(serviceKey,"UTF-8"));
 		forecastURL.append("&_type=json");
 		forecastURL.append("&base_date=" + spaceDate + "&base_time=" + String.format("%04d", spaceTime));
@@ -89,32 +87,10 @@ public class ForecastExplorer extends ApiExplorer {
 		forecastURL.append("&pageNo=1"); /* 나타낼 페이지 */
 		return forecastURL.toString();
 	}
-
-	public String send(boolean isSpace) throws IOException {
-		URL forecasturl;
-		if (isSpace)
-			forecasturl = new URL(Space_Request());
-		else
-			forecasturl = new URL(Grib_Request());
-
-		HttpURLConnection conn = (HttpURLConnection) forecasturl.openConnection();
-		conn.setRequestMethod("GET");
-		conn.setRequestProperty("Content-type", "application/json");
-		System.out.println("Response code: " + conn.getResponseCode());
-		BufferedReader rd;
-		if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		} else {
-			rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-		}
-		StringBuilder sb = new StringBuilder();
-		String line;
-		while ((line = rd.readLine()) != null) {
-			sb.append(line);
-		}
-		rd.close();
-		conn.disconnect();
-		System.out.println(forecasturl.toString());
-		return sb.toString();
+	public String getSpace(){
+		return resultSpace;
+	}
+	public String getGrib(){
+		return resultGrib;
 	}
 }
