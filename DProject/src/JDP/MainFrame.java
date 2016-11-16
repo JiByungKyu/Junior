@@ -1,22 +1,56 @@
 package JDP;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 
 public class MainFrame extends JFrame {
+	public static HashMap<String,String> mapGrib;
+	public static ForecastParser forecastParser1;
 	public MainFrame(){
 		super("Task Manager");
 		
-		MenuFrame menu = new MenuFrame();
-		ContentFrame content = new ContentFrame(); 
+		try {
+			forecastParser1 = new ForecastParser();
+			mapGrib = forecastParser1.getHashMap();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		setSize(800,550);//사이즈 정의
-		setLocation(270,90);//켜졌을때의 프레임의 위치
-		setResizable(false);//크기조정 불가
+		MenuBar menu = new MenuBar();
+		ContentPanel content = new ContentPanel(); 
 		
-		add("North",menu.menubar);//위쪽에 메뉴 추가
-		add(content.content);//중앙에 content 추가
+		setSize(830,550);//�궗�씠利� �젙�쓽
+		setLocation(270,90);//耳쒖죱�쓣�븣�쓽 �봽�젅�엫�쓽 �쐞移�
+		//setResizable(false);//�겕湲곗“�젙 遺덇�
+		
+		setJMenuBar(menu);//�쐞履쎌뿉 硫붾돱 異붽�
+		add(content);//以묒븰�뿉 content 異붽�
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
+		
+		//export tasks on close
+		addWindowListener(new WindowAdapter(){
+			/**
+			 * Method used to export tasks when the program is closed
+			 * 
+			 * @ param exported boolean used to show whether the tasks have been saved of not
+			 */
+			public void windowClosing(WindowEvent we)
+			    {
+					content.pn_task.toDoList.exportTasks();
+			    }
+		});
+	}
+	
+	static public HashMap<String,String> getMapGrib(){
+		return mapGrib;
+	}
+	static ForecastParser getFP(){
+		return forecastParser1;
 	}
 }
