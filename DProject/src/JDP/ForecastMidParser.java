@@ -10,8 +10,8 @@ import org.json.simple.parser.ParseException;
 public class ForecastMidParser {
 	JSONParser jsonParser = new JSONParser();
 	ForecastMidExplorer FME= new ForecastMidExplorer();
-	HashMap<String, String> mapLand=new HashMap<String,String>();
-	HashMap<String, String> mapTemp=new HashMap<String,String>();
+	HashMap<String, String> mapLand=new HashMap<String,String>();	//날씨정보 
+	HashMap<String, String> mapTemp=new HashMap<String,String>();	//
 	String str_Frcst = FME.getFrcst();
 	String str_Land = FME.getLand();
 	String str_Temp=FME.getTemp();
@@ -101,5 +101,10 @@ public class ForecastMidParser {
 	public String getFrcst(){
 		return realFrcst;
 	}
-
+	public HashMap<String, String> getLandHashMap(){ 
+ 		return mapLand; 
+	}
+	public HashMap<String, String> getTempHashMap(){ 
+ 		return mapTemp; 
+	}
 }

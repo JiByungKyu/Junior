@@ -9,9 +9,9 @@ public class ForecastMidExplorer extends ApiExplorer {
 	String midFrcst="getMiddleForecast";
 	String midLand="getMiddleLandWeather";
 	String midTemp="getMiddleTemperature";
-	int stnId=109;	//서울, 인천, 경기도 기상 전망조회  구역 코드
-	String regLandId="11B00000";//서울, 인천, 경기도 육상 예보 구역 코드
-	String regTempId="11B10101";//서울 기온 예보 구역 코드
+	int stnId=109;	//�꽌�슱, �씤泥�, 寃쎄린�룄 湲곗긽 �쟾留앹“�쉶  援ъ뿭 肄붾뱶
+	String regLandId="11B00000";//�꽌�슱, �씤泥�, 寃쎄린�룄 �쑁�긽 �삁蹂� 援ъ뿭 肄붾뱶
+	String regTempId="11B10101";//�꽌�슱 湲곗삩 �삁蹂� 援ъ뿭 肄붾뱶
 	long tmFrcst;
 	String resultFrcst;
 	String resultLand;
@@ -42,9 +42,9 @@ public class ForecastMidExplorer extends ApiExplorer {
 		forecastURL.append("?ServiceKey=" + FCMidKey);// URLEncoder.encode(serviceKey,"UTF-8"));
 		forecastURL.append("&_type=json");
 		forecastURL.append("&stnId=" + stnId);
-		forecastURL.append("&tmFc="+tmFrcst);// 충무로
-		forecastURL.append("&numOfRows=999");/* 검색할 줄 수 */
-		forecastURL.append("&pageNo=1"); /* 나타낼 페이지 */
+		forecastURL.append("&tmFc="+tmFrcst);// 異⑸Т濡�
+		forecastURL.append("&numOfRows=999");/* 寃��깋�븷 以� �닔 */
+		forecastURL.append("&pageNo=1"); /* �굹���궪 �럹�씠吏� */
 		return forecastURL.toString();
 	}
 	private String Land_Request(){
@@ -52,9 +52,9 @@ public class ForecastMidExplorer extends ApiExplorer {
 		forecastURL.append("?ServiceKey=" + FCMidKey);
 		forecastURL.append("&_type=json");
 		forecastURL.append("&regId=" + regLandId);
-		forecastURL.append("&tmFc="+tmFrcst);// 충무로
-		forecastURL.append("&numOfRows=999");/* 검색할 줄 수 */
-		forecastURL.append("&pageNo=1"); /* 나타낼 페이지 */
+		forecastURL.append("&tmFc="+tmFrcst);// 異⑸Т濡�
+		forecastURL.append("&numOfRows=999");/* 寃��깋�븷 以� �닔 */
+		forecastURL.append("&pageNo=1"); /* �굹���궪 �럹�씠吏� */
 		return forecastURL.toString();
 	}
 	private String Temp_Request(){
@@ -62,9 +62,9 @@ public class ForecastMidExplorer extends ApiExplorer {
 		forecastURL.append("?ServiceKey=" + FCMidKey);
 		forecastURL.append("&_type=json");
 		forecastURL.append("&regId=" + regTempId);
-		forecastURL.append("&tmFc="+tmFrcst);// 충무로
-		forecastURL.append("&numOfRows=999");/* 검색할 줄 수 */
-		forecastURL.append("&pageNo=1"); /* 나타낼 페이지 */
+		forecastURL.append("&tmFc="+tmFrcst);// 異⑸Т濡�
+		forecastURL.append("&numOfRows=999");/* 寃��깋�븷 以� �닔 */
+		forecastURL.append("&pageNo=1"); /* �굹���궪 �럹�씠吏� */
 		return forecastURL.toString();
 	}
 	public String getFrcst(){
