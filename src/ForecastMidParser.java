@@ -100,5 +100,10 @@ public class ForecastMidParser {
 	public String getFrcst(){
 		return realFrcst;
 	}
-
+	public HashMap<String, String> getLandHashMap(){ 
+ 		return mapLand; 
+	}
+	public HashMap<String, String> getTempHashMap(){ 
+ 		return mapTemp; 
+	}
 }

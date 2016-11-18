@@ -24,8 +24,8 @@ public class MainApp {
 		//HashMap<String,String> G[] = new HashMap[30];
 		//for(int a=0;a<30;a++)
 		//		G[a]=new HashMap<String,String>();
-		//ForecastParser b=new ForecastParser();
-		new ForecastMidParser();
+		//new ForecastParser();
+		new FineDustParser();
 	}
 
 }

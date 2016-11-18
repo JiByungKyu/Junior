@@ -72,7 +72,7 @@ public class ForecastParser {
 		}
 		return noTime;
 	}
-	private void spaceParsing() throws IOException {
+	private void spaceParsing() {
 		JSONObject json;
 		int item_Index = 0;
 		int objectSize;

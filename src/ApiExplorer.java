@@ -5,11 +5,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Calendar;
 
-public abstract class ApiExplorer {
+public class ApiExplorer {
 	protected String FCBaseUrl = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/";
 	protected String FCserviceKey = "bmEl832vF6jbBp3i%2Fux7VvldeJN6gX0YbM67TfhYPwkB%2B5Y0yaYwZ9n6sdz0mHiIIy0UrdvlKF0fulRi0y%2FuhA%3D%3D";
 	protected String FCMidKey="bmEl832vF6jbBp3i%2Fux7VvldeJN6gX0YbM67TfhYPwkB%2B5Y0yaYwZ9n6sdz0mHiIIy0UrdvlKF0fulRi0y%2FuhA%3D%3D";
+	protected String AirDustKey="bmEl832vF6jbBp3i%2Fux7VvldeJN6gX0YbM67TfhYPwkB%2B5Y0yaYwZ9n6sdz0mHiIIy0UrdvlKF0fulRi0y%2FuhA%3D%3D";
 	protected String FCMidUrl = "http://newsky2.kma.go.kr/service/MiddleFrcstInfoService/";
+	protected String airUrl="http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/";
 	protected Calendar cal = Calendar.getInstance();
 	protected int cDate, cTime;
 
@@ -51,6 +53,7 @@ public abstract class ApiExplorer {
 		rd.close();
 		conn.disconnect();
 		System.out.println(forecasturl.toString());
+		System.out.println(sb.toString());
 		return sb.toString();
 	}
 }
