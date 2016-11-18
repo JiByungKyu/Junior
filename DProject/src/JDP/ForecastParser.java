@@ -24,7 +24,8 @@ public class ForecastParser {
 	int SIZE[] = { 11, 9, 12, 9, 11, 10, 11, 9 };
 	HashMap<String, String> mapSpace[];
 	HashMap<String, String> mapGrib ;
-	ForecastParser() throws IOException{
+	
+	public ForecastParser() throws IOException{
 		str_Space = FE.send(isSpace);
 		jsonParser = new JSONParser();
 		System.out.println(str_Space);
@@ -39,6 +40,10 @@ public class ForecastParser {
 		jsonParser = new JSONParser();
 		System.out.println(str_Grib);
 		gribParsing(mapGrib);
+	}
+	
+	public HashMap<String, String> getHashMap(){
+		return mapGrib;
 	}
 	
 	private void gribParsing(HashMap<String, String> mapGrib) throws IOException {
@@ -88,10 +93,6 @@ public class ForecastParser {
 		return noTime;
 	
 	}
-	public HashMap<String, String>[] getmapSpace(){
-		return mapSpace;
-	}
-	
 	private void spaceParsing(HashMap<String, String>[] mapSpace) throws IOException {
 		JSONObject json;
 		int item_Index = 0;
@@ -138,14 +139,6 @@ public class ForecastParser {
 						item_Index+=objectSize;
 					break;
 				}
-				/*Iterator<String> iter = mapSpace[mapIndex].keySet().iterator();
-				while (iter.hasNext()) {
-					String key = (String) iter.next();
-					System.out.print("key=" + key);
-					System.out.println(" value=" + mapSpace[mapIndex].get(key));
-				}
-				System.out.println(item_Index);
-				*/
 			}
 		} catch (ParseException e) { // TODO Auto-generated catch block
 			e.printStackTrace();

@@ -17,12 +17,14 @@ import javax.swing.SwingUtilities;
 
 import org.json.simple.parser.ParseException;
 
+
+
 public class Submain extends JFrame {
 	
 	private JTabbedPane jtp = new JTabbedPane();
 	private JPanel PN_Weather = new JPanel();
-	private JPanel PN_News = new JPanel();
-	private JPanel PN_Subway = new JPanel();
+	private newsPanel PN_News = new newsPanel();
+	//private JPanel PN_Subway = new JPanel();
 	private ArrayList<String> dayList =  new ArrayList<String>();
 	private int daytemplocation;
 	public Submain(ForecastParser FP) throws IOException, ParseException{
@@ -153,7 +155,7 @@ public class Submain extends JFrame {
 		}
 		JLabel LB_intro = new JLabel("이틀간 날씨");
 		LB_intro.setFont(new Font("한컴돋움", Font.BOLD, 16));
-		LB_intro.setBounds(107, 10, 98, 20);
+		LB_intro.setBounds(50, 10, 98, 20);
 		PN_Weather.add(LB_intro);
 		JLabel LB_date = new JLabel("날짜");
 		LB_date.setBounds(20, 30, 30, 15);
@@ -177,9 +179,9 @@ public class Submain extends JFrame {
 		
 		jtp.addTab("날씨", PN_Weather);
 		jtp.addTab("뉴스", PN_News);
-		jtp.addTab("지하철", PN_Subway);
-		this.setSize(330,550);
-		this.setLocation(1070,90);
+		//jtp.addTab("지하철", PN_Subway);
+		this.setSize(330,545);
+		this.setLocation(1105,93);
 		setResizable(false);
 		
 		getContentPane().add(jtp,BorderLayout.CENTER);

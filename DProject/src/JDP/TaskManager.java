@@ -6,10 +6,11 @@ import org.json.simple.parser.ParseException;
 
 public class TaskManager {
 	public static void main(String[] args)throws IOException, ParseException{
-		ForecastParser FP= new ForecastParser();
-		MainFrame main = new MainFrame();
-		Submain Sm = new Submain(FP);
 		
+		MainFrame main = new MainFrame();
+		
+		Submain Sm = new Submain(main.getFP());
+
 
 	}
 }
