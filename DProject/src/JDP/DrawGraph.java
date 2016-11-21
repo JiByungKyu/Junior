@@ -39,6 +39,7 @@ public class DrawGraph extends JPanel {
    private int dayminTemp;
    public DrawGraph(ForecastMidParser FM) {
      
+	   this.setBackground(Color.WHITE);
 	   	this.FM = FM;
 		
 		mapLand = FM.getLandHashMap();	//날씨 3~8일까지 오전 오후로, 
@@ -68,6 +69,7 @@ public class DrawGraph extends JPanel {
 				daymaxTemp = Integer.parseInt(mapTemp.get(max));
 			}
       }
+      
       if(daymaxTemp>0){
     	  daymaxTemp=(daymaxTemp/10)*10+10;
       }else{
@@ -130,7 +132,7 @@ public class DrawGraph extends JPanel {
          int x = minPoints.get(i).x - GRAPH_POINT_WIDTH / 2;
         
       }
-      
+   
       int var=-setzero/10;
       // create x and y axes 
       g2.drawLine(BORDER_GAP, getHeight() - BORDER_GAP, BORDER_GAP, BORDER_GAP);//y축

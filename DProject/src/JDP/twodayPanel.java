@@ -49,7 +49,7 @@ public class twodayPanel extends JPanel {
 					Image useImg;
 					JLabel img;
 					if(FP.mapSpace[i].get(key).equals("1")){
-						weatherImg = new ImageIcon("sunny.jpg");
+						weatherImg = new ImageIcon("sunny.png");
 						useImg = weatherImg.getImage();
 						useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 						weatherImg = new ImageIcon(useImg);

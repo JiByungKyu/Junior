@@ -29,7 +29,7 @@ public class Submain extends JFrame {
 	public Submain(ForecastParser FP) throws IOException, ParseException{
 		super("Weather Detail");
 		PN_Weather = new twodayPanel(FP);
-		
+		//PN_Weather.setBackground(Color.WHITE);
 		
 		
 			
