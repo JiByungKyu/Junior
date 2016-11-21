@@ -1,45 +1,64 @@
 package JDP;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-public class MenuBar extends JMenuBar {
+public class MenuBar extends JMenuBar implements ActionListener {
 	//field
 	private JMenu mn_task;
-	private JMenu mn_tag;
 	private JMenu mn_info;
 	private JMenuItem add_task;
+	private JMenuItem edit_task;
 	private JMenuItem delete_task;
-	private JMenuItem show_task;
-	private JMenuItem add_tag;
-	private JMenuItem delete_tag;
-	private JMenuItem show_tag;
-	private JMenuItem show_infolist;
+	private JMenuItem show_all;
+	private JMenuItem show_info;
 	//method
 	public MenuBar(){
 		mn_task = new JMenu("Edit");
-		mn_tag = new JMenu("Tag");
 		mn_info = new JMenu("Info");
 		
 		add_task = new JMenuItem("Add Task");
+		edit_task = new JMenuItem("Edit Task");
 		delete_task = new JMenuItem("Delete Task");
-		show_task = new JMenuItem("Show Task");
-		add_tag = new JMenuItem("Add Tag");
-		delete_tag = new JMenuItem("Delete Tag");
-		show_tag = new JMenuItem("Show Tag");
-		show_infolist = new JMenuItem("List");
+		show_all = new JMenuItem("Show All");
+		show_info = new JMenuItem("List");
+		
+		add_task.addActionListener(this);
+		edit_task.addActionListener(this);
+		delete_task.addActionListener(this);
+		show_all.addActionListener(this);
+		show_info.addActionListener(this);
 		
 		mn_task.add(add_task);
+		mn_task.add(edit_task);
 		mn_task.add(delete_task);
-		mn_task.add(show_task);
-		mn_tag.add(add_tag);
-		mn_tag.add(delete_tag);
-		mn_tag.add(show_tag);
-		mn_info.add(show_infolist);
+		mn_task.add(show_all);
+		mn_info.add(show_info);
 		
 		add(mn_task);
-		add(mn_tag);
 		add(mn_info);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == add_task){
+			TaskPanel.toDoList.add1.setVisible(true);
+		}
+		else if(e.getSource() == edit_task){
+			TaskPanel.toDoList.edit(TaskPanel.taskList.getSelectedIndex());
+		}
+		else if(e.getSource() == delete_task){
+			TaskPanel.toDoList.delete(TaskPanel.taskList.getSelectedIndex());
+		}
+		else if(e.getSource() == show_all){
+			TaskPanel.toDoList.setVisible(true);
+		}
+		else if(e.getSource() == show_info){
+			
+		}
 	}
 }

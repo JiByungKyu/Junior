@@ -26,7 +26,7 @@ public class CalendarPanel extends JPanel implements ActionListener, MouseWheelL
 	 * 한기훈 11/15
 	 */
 	private static final long serialVersionUID = 1L;
-	private Calendar calendar;
+	private static Calendar calendar;
 	private JLabel label;
 	private JPanel pn_month;
 	private JTable tb_dateView;
@@ -37,8 +37,9 @@ public class CalendarPanel extends JPanel implements ActionListener, MouseWheelL
 	private DefaultTableModel dtm_weekTable;
 	private DefaultTableModel dtm_dateTable;
 	private String[] weekColumn = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
+	private String date;
 	
-	public CalendarPanel(){
+	public CalendarPanel(){	
 		
 		calendar = Calendar.getInstance();
 		label = new JLabel();
@@ -129,15 +130,23 @@ public class CalendarPanel extends JPanel implements ActionListener, MouseWheelL
         
 		tb_dateView.setCellSelectionEnabled(true);
 		tb_dateView.setColumnSelectionAllowed(true);
+		
 		tb_dateView.addMouseListener(new MouseAdapter() {
              @Override
              public void mouseClicked(MouseEvent e) {
-            	 
+            	 if(dtm_dateTable.getValueAt(tb_dateView.getSelectedRow(), tb_dateView.getSelectedColumn()).toString().indexOf("*") == -1){
+            		 TaskPanel.showTask(Integer.parseInt(dtm_dateTable.getValueAt(tb_dateView.getSelectedRow(), tb_dateView.getSelectedColumn()).toString().trim()), 
+            			calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
+            	 }
+            	 else{
+            		 date = dtm_dateTable.getValueAt(tb_dateView.getSelectedRow(), tb_dateView.getSelectedColumn()).toString().replace("*", " ");
+            		 TaskPanel.showTask(Integer.parseInt(date.trim()), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
+            	 }
              }
          });
 		tb_dateView.addMouseWheelListener(this);
 		tb_dateView.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-        tb_dateView.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tb_dateView.setBorder(new LineBorder(new Color(0, 0, 0)));
         tb_dateView.setRowHeight(60);
         tb_dateView.setFillsViewportHeight(true);
         tb_dateView.setBounds(12, 107, 500, 360);
@@ -155,7 +164,18 @@ public class CalendarPanel extends JPanel implements ActionListener, MouseWheelL
         add(tb_dateView,BorderLayout.SOUTH);
         add(pn_month, BorderLayout.NORTH);
         
-        calendarView();
+	}
+	
+	boolean isTaskExist(int day){
+		int i;
+		for(i = 0; i<TaskPanel.toDoList.getTask().size(); i++){
+			if(ToDoList.myTasks.get(i).getEndDate().getYear() == calendar.get(Calendar.YEAR) &&
+					ToDoList.myTasks.get(i).getEndDate().getMonth() == calendar.get(Calendar.MONTH) + 1 &&
+							ToDoList.myTasks.get(i).getEndDate().getDay() == day){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	protected void calendarView() {
@@ -173,14 +193,21 @@ public class CalendarPanel extends JPanel implements ActionListener, MouseWheelL
                 col = 0;
                 row += 1;
             }
-            tb_dateView.setValueAt(" " + day, row, col);
+            if(isTaskExist(day))
+            	tb_dateView.setValueAt(" " + day + "*", row, col);
+            else
+            	tb_dateView.setValueAt(" " + day, row, col);
         }
     }
+	
+	public static Calendar getCalendar(){
+		return calendar; 
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btn_todayShift){
-			calendar = Calendar.getInstance();			
+			calendar = Calendar.getInstance();		
 			calendarView();
 		}
 		if(e.getSource() == btn_leftShift){

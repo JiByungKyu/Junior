@@ -7,31 +7,49 @@ import java.util.HashMap;
 
 import javax.swing.JFrame;
 
+import org.json.simple.parser.ParseException;
+
+import weather.FineDustParser;
 import weather.ForecastParser;
 
 public class MainFrame extends JFrame {
-	public static HashMap<String,String> mapGrib;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static HashMap<String,String> mapGrib;
+	private static HashMap<String, String> mapFnDst;
+	private MenuBar menu;
+	private ContentPanel content;
 	
 	public MainFrame(){
 		super("Task Manager");
 		
 		try {
-			ForecastParser forecastParser = new ForecastParser();
-			mapGrib = forecastParser.getHashMap();
+			ForecastParser forecastParser;
+			FineDustParser fineDustParser;
+			try {
+				forecastParser = new ForecastParser();
+				fineDustParser = new FineDustParser(); 
+				mapGrib = forecastParser.getGribHashMap();
+				mapFnDst = fineDustParser.getFnDstHashMap(); 
+				Submain smain = new Submain(forecastParser);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		MenuBar menu = new MenuBar();
-		ContentPanel content = new ContentPanel(); 
+		menu = new MenuBar();
+		content = new ContentPanel(); 
 		
-		setSize(830,530);//사이즈 정의
+		setSize(850,550);	//사이즈 정의
 		setLocation(270,90);//켜졌을때의 프레임의 위치
-		//setResizable(false);//크기조정 불가
+		setResizable(false);//크기조정 불가
 		
-		setJMenuBar(menu);//위쪽에 메뉴 추가
-		add(content);//중앙에 content 추가
+		setJMenuBar(menu);	//위쪽에 메뉴 추가
+		add(content);		//중앙에 content 추가
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 		
@@ -49,7 +67,11 @@ public class MainFrame extends JFrame {
 		});
 	}
 	
-	static public HashMap<String,String> getMapGrib(){
+	static public HashMap<String,String> getWeather(){
 		return mapGrib;
+	}
+	
+	static public HashMap<String, String> getFineDust(){
+		return mapFnDst;
 	}
 }

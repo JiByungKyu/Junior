@@ -16,9 +16,9 @@ public class myDate {
 	 * @param year the year of this instance
 	 */
 	public myDate(int day, int month, int year) {
-		this.day = day;
-		this.month = month;
 		this.year = year;
+		this.month = month;
+		this.day = day;
 	}
 	/**
 	 * Method used to return the day of this instance

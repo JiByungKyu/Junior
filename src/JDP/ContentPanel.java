@@ -20,8 +20,10 @@ public class ContentPanel extends JPanel {
 		pn_RightPanel = new JPanel();
 		pn_calendar = new CalendarPanel();
 		pn_weather = new WeatherPanel();
-		pn_task = new TaskPanel();
+		pn_task = new TaskPanel(this);
 		empty = new JTextArea();
+		
+		pn_calendar.calendarView();
 		
 		empty.setEditable(false);
 		empty.setText("\n");
@@ -35,5 +37,9 @@ public class ContentPanel extends JPanel {
 		
 		add(pn_calendar,"West");
 		add(pn_RightPanel,"East");
+	}
+	
+	public CalendarPanel getCalendarPanel(){
+		return pn_calendar;
 	}
 }

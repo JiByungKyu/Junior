@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -51,16 +52,20 @@ public class AddWindow extends JFrame implements ActionListener{
 	private static JComboBox endMonthCombo;
 	private static JComboBox endYearCombo;
 	
+	private static Calendar cal;
+	
 	private static String[] priorityList = {"Low", "Medium", "High", "Other"};
 	private static String[] categoryList = {"Personal", "Social", "Business", "School", "Other"};
 	private static String[] day = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
 	private static String[] month = {"1","2","3","4","5","6","7","8","9","10","11","12"};
-	private static String[] year = {"2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020"};
+	private static String[] year;
 	/**
 	 * Method used to create the Add window
 	 */
 	public AddWindow()
 	{	
+		int tYear;
+		
 		Dimension dimen = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLayout(new BorderLayout());
 		this.setTitle("Add Task");
@@ -68,7 +73,12 @@ public class AddWindow extends JFrame implements ActionListener{
 		this.setResizable(false);
 		this.setLocation((int)dimen.getWidth()/2 - this.getWidth()/2, (int)dimen.getHeight()/2 - this.getHeight()/2);
 		
-		
+		cal = Calendar.getInstance();
+		year = new String[21];
+		for(int i=0; i < 21; i++){
+			tYear = cal.get(Calendar.YEAR);
+			year[i] = Integer.toString(tYear - 10 + i);
+		}
 		
 		taskName = new JLabel("Task Name: ");
 		startDate = new JLabel("Start Date: ");
@@ -82,17 +92,17 @@ public class AddWindow extends JFrame implements ActionListener{
 		dayCombo = new JComboBox(day);
 		monthCombo = new JComboBox(month);
 		yearCombo = new JComboBox(year);
-		startDatePanel.add(dayCombo);
-		startDatePanel.add(monthCombo);
 		startDatePanel.add(yearCombo);
+		startDatePanel.add(monthCombo);
+		startDatePanel.add(dayCombo);
 		
 		endDatePanel = new JPanel(new GridLayout(1,3));
 		endDayCombo = new JComboBox(day);
 		endMonthCombo = new JComboBox(month);
 		endYearCombo = new JComboBox(year);
-		endDatePanel.add(endDayCombo);
-		endDatePanel.add(endMonthCombo);
 		endDatePanel.add(endYearCombo);
+		endDatePanel.add(endMonthCombo);
+		endDatePanel.add(endDayCombo);
 		
 		priorityCombo 	 = new JComboBox(priorityList);
 		percCompDisplay  = new JTextField("");
@@ -128,10 +138,10 @@ public class AddWindow extends JFrame implements ActionListener{
 		        clearText();
 		    }
 		});
-		
 		clearText();
 		validate();
 	}
+	
 	/**
 	 * Method used to reset the window to its default state, empty text fields etc
 	 */
@@ -139,13 +149,13 @@ public class AddWindow extends JFrame implements ActionListener{
 	{
 		taskNameDisplay.setText("");
 		
-		dayCombo.setSelectedItem("1");
-		monthCombo.setSelectedItem("1");
-		yearCombo.setSelectedItem("2016");
+		dayCombo.setSelectedItem(Integer.toString(cal.get(Calendar.DATE)));
+		monthCombo.setSelectedItem(Integer.toString(cal.get(Calendar.MONTH) + 1));
+		yearCombo.setSelectedItem(Integer.toString(cal.get(Calendar.YEAR)));
 
-		endDayCombo.setSelectedItem("1");
-		endMonthCombo.setSelectedItem("1"); 
-		endYearCombo.setSelectedItem("2016");
+		endDayCombo.setSelectedItem(Integer.toString(cal.get(Calendar.DATE)));
+		endMonthCombo.setSelectedItem(Integer.toString(cal.get(Calendar.MONTH) + 1));
+		endYearCombo.setSelectedItem(Integer.toString(cal.get(Calendar.YEAR)));
 		
 		priorityCombo.setSelectedItem("Other");
 		percCompDisplay.setText("");

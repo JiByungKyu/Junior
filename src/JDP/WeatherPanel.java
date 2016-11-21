@@ -13,13 +13,16 @@ import javax.swing.SwingUtilities;
 
 import weather.ForecastParser;
 
+@SuppressWarnings("serial")
 public class WeatherPanel extends JPanel {
 	String location = "충무로";
 	
 	JPanel pn_temp;
+	
 	JTextArea ta_weatherInfo;
 	JTextArea ta_tempNow;
 	JTextArea ta_sensibleTemp;
+	
 	ImageIcon weatherImg;
 	Image useImg;
 	JLabel img;
@@ -36,10 +39,10 @@ public class WeatherPanel extends JPanel {
 		ta_weatherInfo.setBackground(Color.WHITE);
 		ta_weatherInfo.setText(location + "\n");
 		
-		switch(MainFrame.getMapGrib().get("SKY")){
+		switch(MainFrame.getWeather().get("SKY")){
 		case "1": 
 			ta_weatherInfo.append("맑음\n");
-			weatherImg = new ImageIcon("sunny.jpg");
+			weatherImg = new ImageIcon("맑음.png");
 			useImg = weatherImg.getImage();
 			useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
 			weatherImg = new ImageIcon(useImg);
@@ -47,7 +50,7 @@ public class WeatherPanel extends JPanel {
 		break;
 		case "2": 
 			ta_weatherInfo.append("구름조금\n"); 
-			weatherImg = new ImageIcon("");
+			weatherImg = new ImageIcon("구름조금.jpg");
 			useImg = weatherImg.getImage();
 			useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
 			weatherImg = new ImageIcon(useImg);
@@ -55,55 +58,56 @@ public class WeatherPanel extends JPanel {
 			break;
 		case "3":
 			ta_weatherInfo.append("구름많음\n");
-			weatherImg = new ImageIcon("");
+			weatherImg = new ImageIcon("구름많음.jpg");
 			useImg = weatherImg.getImage();
 			useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
 			weatherImg = new ImageIcon(useImg);
 			img = new JLabel("", weatherImg, SwingUtilities.CENTER);
 			break;
 		case "4":
-		if(MainFrame.getMapGrib().get("PTY") == "1"){
-			ta_weatherInfo.append("비\n");
-			weatherImg = new ImageIcon("");
-			useImg = weatherImg.getImage();
-			useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
-			weatherImg = new ImageIcon(useImg);
-			img = new JLabel("", weatherImg, SwingUtilities.CENTER);
-		}
-		else if(MainFrame.getMapGrib().get("PTY") == "2"){
-			ta_weatherInfo.append("진눈깨비\n");
-			weatherImg = new ImageIcon("");
-			useImg = weatherImg.getImage();
-			useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
-			weatherImg = new ImageIcon(useImg);
-			img = new JLabel("", weatherImg, SwingUtilities.CENTER);
-		}
-		else if(MainFrame.getMapGrib().get("PTY") == "3"){
-			ta_weatherInfo.append("눈\n");
-			weatherImg = new ImageIcon("");
-			useImg = weatherImg.getImage();
-			useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
-			weatherImg = new ImageIcon(useImg);
-			img = new JLabel("", weatherImg, SwingUtilities.CENTER);
-		}
-		else if(MainFrame.getMapGrib().get("PTY") == "0"){
-			ta_weatherInfo.append("흐림\n");
-			weatherImg = new ImageIcon("");
-			useImg = weatherImg.getImage();
-			useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
-			weatherImg = new ImageIcon(useImg);
-			img = new JLabel("", weatherImg, SwingUtilities.CENTER);
-		}
+			if(MainFrame.getWeather().get("PTY").equals("1")){
+				ta_weatherInfo.append("비\n");
+				weatherImg = new ImageIcon("비.jpg");
+				useImg = weatherImg.getImage();
+				useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
+				weatherImg = new ImageIcon(useImg);
+				img = new JLabel("", weatherImg, SwingUtilities.CENTER);
+			}
+			else if(MainFrame.getWeather().get("PTY").equals("2")){
+				ta_weatherInfo.append("진눈깨비\n");
+				weatherImg = new ImageIcon("");
+				useImg = weatherImg.getImage();
+				useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
+				weatherImg = new ImageIcon(useImg);
+				img = new JLabel("", weatherImg, SwingUtilities.CENTER);
+			}
+			else if(MainFrame.getWeather().get("PTY").equals("3")){
+				ta_weatherInfo.append("눈\n");
+				weatherImg = new ImageIcon("눈.jpg");
+				useImg = weatherImg.getImage();
+				useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
+				weatherImg = new ImageIcon(useImg);
+				img = new JLabel("", weatherImg, SwingUtilities.CENTER);
+			}	
+			else if(MainFrame.getWeather().get("PTY").equals("0")){
+				ta_weatherInfo.append("흐림\n");
+				weatherImg = new ImageIcon("흐림.jpg");
+				useImg = weatherImg.getImage();
+				useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
+				weatherImg = new ImageIcon(useImg);
+				img = new JLabel("", weatherImg, SwingUtilities.CENTER);
+			}
 			 break;
 		}
 		
-		ta_weatherInfo.append("");
-		ta_weatherInfo.append("%       ");
+		ta_weatherInfo.append("미세먼지: ");
+		ta_weatherInfo.append(calculateFineDust(MainFrame.getFineDust().get("pm25Value")));
+		ta_weatherInfo.append("  ");
 		
 		pn_temp.setLayout(new BorderLayout());
 		pn_temp.setSize(15, 15);
 		ta_tempNow.setFont(new Font("맑은 고딕", Font.BOLD, 30));
-		ta_tempNow.setText(MainFrame.getMapGrib().get("T1H")+"°C");
+		ta_tempNow.setText(MainFrame.getWeather().get("T1H")+"°C");
 		ta_sensibleTemp.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		ta_sensibleTemp.setText("체감: " + calculateSensibleTemp() + "°C");
 		
@@ -114,11 +118,29 @@ public class WeatherPanel extends JPanel {
 		add("RIGHT", pn_temp);
 	}
 	
+	/**
+	 * 체감온도 계산
+	 * @return
+	 */
 	String calculateSensibleTemp(){
-		double v = Double.parseDouble(MainFrame.getMapGrib().get("WSD"))*3.6;
-		double t = Double.parseDouble(MainFrame.getMapGrib().get("T1H"));
+		double v = Double.parseDouble(MainFrame.getWeather().get("WSD"))*3.6;
+		double t = Double.parseDouble(MainFrame.getWeather().get("T1H"));
 		double senTemp = 13.12 + 0.6215*t - 11.37*Math.pow(v,0.16) + 0.3965*Math.pow(v,0.16)*t;
 		
 		return Double.toString((int)senTemp);
+	}
+	/**
+	 * 미세먼지 농도를 통한 예보
+	 */
+	String calculateFineDust(String dust){
+		int dustValue = Integer.parseInt(dust);
+		if(dustValue <= 30)
+			return "좋음";
+		else if(dustValue <= 80)
+			return "보통";
+		else if(dustValue <=150)
+			return "나쁨";
+		else
+			return "매우나쁨";
 	}
 }

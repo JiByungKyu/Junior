@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -24,10 +25,11 @@ public class TaskPanel extends JPanel implements ActionListener {
 	protected JButton btn_delete;
 	protected JButton btn_modify;
 	protected JButton btn_showAll;
-	ToDoList toDoList;
-	
+	static ToDoList toDoList;
+	ContentPanel pn_content;
 	//method
-	TaskPanel(){
+	TaskPanel(ContentPanel content){
+		pn_content = content;
 		pn_taskList = new JPanel();
 		pn_button = new JPanel();
 		pn_showbtn = new JPanel();
@@ -37,7 +39,7 @@ public class TaskPanel extends JPanel implements ActionListener {
 		btn_modify = new JButton("수정");
 		btn_delete = new JButton("삭제");
 		btn_showAll = new JButton("일정 모두 보기");
-		toDoList = new ToDoList();	
+		toDoList = new ToDoList();
 		
 		setLayout(new BorderLayout());
 		pn_button.setBackground(Color.WHITE);
@@ -66,40 +68,46 @@ public class TaskPanel extends JPanel implements ActionListener {
 		add(new JPanel());
 		add(pn_button,"Center");
 		add(pn_showbtn,"South");
-	
-		showTask();
+		showTask(CalendarPanel.getCalendar().get(Calendar.DATE),
+				CalendarPanel.getCalendar().get(Calendar.MONTH) + 1,
+				CalendarPanel.getCalendar().get(Calendar.YEAR));
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String event = e.getActionCommand();
 		if(event.equals("일정 추가")){
 			toDoList.add1.setVisible(true);
-			
+			pn_content.getCalendarPanel().calendarView();
 		}
 		else if(event.equals("수정")){
 			toDoList.edit(taskList.getSelectedIndex());
+			pn_content.getCalendarPanel().calendarView();
 		}
 		else if(event.equals("삭제")){
 			toDoList.delete(taskList.getSelectedIndex());
+			pn_content.getCalendarPanel().calendarView();
 		}
 		else if(event.equals("일정 모두 보기")){
 			toDoList.setVisible(true);
 		}
-		showTask();
+		showTask(CalendarPanel.getCalendar().get(Calendar.DATE),
+				CalendarPanel.getCalendar().get(Calendar.MONTH) + 1,
+				CalendarPanel.getCalendar().get(Calendar.YEAR));
 	}
 	
-	public void showTask(){
-		if(listModel.isEmpty()){
-			for(int i = 0; i < toDoList.getTask().size(); i++)
-				listModel.addElement(toDoList.getTask().get(i).getName());
-		}
-		else{
+	public static void showTask(int day, int month, int year){
+		if(!listModel.isEmpty()){
 			listModel.removeAllElements();
-			for(int i = 0; i < toDoList.getTask().size(); i++){
+		}
+		for(int i = 0; i < ToDoList.myTasks.size(); i++){
+			if(ToDoList.myTasks.get(i).getEndDate().getDay() == day && 
+					ToDoList.myTasks.get(i).getEndDate().getMonth() == month &&
+					ToDoList.myTasks.get(i).getEndDate().getYear() == year)
+			{
 				listModel.addElement(toDoList.getTask().get(i).getName());
-			}	
+			}
 		}
 	}
 }

@@ -21,8 +21,8 @@ public class Task {
 	public Task()
 	{
 		this.name = "name";
-		this.startDate = new myDate(01, 01, 2011);
-		this.endDate = new myDate(01, 01, 2011);
+		this.startDate = new myDate(2011, 01, 01);
+		this.endDate = new myDate(2011, 01, 01);
 		this.priority = "priority";
 		this.percComp = 0;
 		this.category = "category";
