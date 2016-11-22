@@ -1,4 +1,4 @@
-package HDP;
+package JDP;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,14 +10,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
-import JDP.ForecastParser;
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-<<<<<<< HEAD:DProject/src/HDP/twodayPanel.java
 public class twodayPanel extends JPanel {
 	private ArrayList<String> dayList =  new ArrayList<String>();
 	private int daytemplocation;
@@ -146,10 +142,10 @@ public class twodayPanel extends JPanel {
 			}
 		}
 		
-		/*JLabel LB_intro = new JLabel("이틀간 날씨");
+		JLabel LB_intro = new JLabel("이틀간 날씨");
 		LB_intro.setFont(new Font("한컴돋움", Font.BOLD, 16));
 		LB_intro.setBounds(50, 10, 98, 20);
-		add(LB_intro);*/
+		add(LB_intro);
 		JLabel LB_date = new JLabel("날짜");
 		LB_date.setBounds(20, 30, 30, 15);
 		add(LB_date);
@@ -162,48 +158,10 @@ public class twodayPanel extends JPanel {
 		JLabel LB_temp = new JLabel("온도");
 		LB_temp.setBounds(245, 30, 30, 15);
 		add(LB_temp);
-=======
-
-public class Submain extends JFrame {
-	
-	private JTabbedPane jtp = new JTabbedPane();
-	private twodayPanel PN_Weather;
-	private newsPanel PN_News = new newsPanel();
-	//private JPanel PN_Subway = new JPanel();
-	
-	public Submain(ForecastParser FP) throws IOException, ParseException{
-		super("Weather Detail");
-		PN_Weather = new twodayPanel(FP);
-		//PN_Weather.setBackground(Color.WHITE);
-		
-		
-			
-		PN_News.setBackground(Color.WHITE);
-		
-		
-		
-		jtp.addTab("날씨", PN_Weather);
-		jtp.addTab("뉴스", PN_News);
-		PN_News.setLayout(null);
-		//jtp.addTab("지하철", PN_Subway);
-		this.setSize(330,545);
-		this.setLocation(1105,93);
-		setResizable(false);      
-		
-		getContentPane().add(jtp,BorderLayout.CENTER);
-		setVisible(true);
->>>>>>> 408dd76e91fce1f531c64a0ff2b2bd5390501be4:DProject/src/JDP/Submain.java
 		
 		setBackground(Color.WHITE);
 		setLayout(null);
-		String getYear=Integer.toString(FP.FE.make_SpaceDate()).substring(0, 4);
-		String getMonth=Integer.toString(FP.FE.make_SpaceDate()).substring(4, 6);
-		String getDay=Integer.toString(FP.FE.make_SpaceDate()).substring(6);
-		String getTime=Integer.toString(FP.FE.make_SpaceTime()/100);
-		JLabel getDate= new JLabel(getYear+"년 "+getMonth+"월 "+getDay+"일 "
-				+getTime+"시 정보");
-		getDate.setBounds(10, 0, 163, 23);
-		add(getDate);
+		
 		JButton button = new JButton("주간날씨보기");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
