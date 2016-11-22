@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 import javax.swing.JFrame;
 
+import org.json.simple.parser.ParseException;
+
 public class MainFrame extends JFrame {
 	public static HashMap<String,String> mapGrib;
 	public static ForecastParser forecastParser1;
@@ -15,8 +17,8 @@ public class MainFrame extends JFrame {
 		
 		try {
 			forecastParser1 = new ForecastParser();
-			mapGrib = forecastParser1.getHashMap();
-		} catch (IOException e) {
+			mapGrib = forecastParser1.getGribHashMap();
+		} catch (IOException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

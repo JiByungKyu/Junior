@@ -13,46 +13,28 @@ import org.json.simple.parser.ParseException;
  * class: 기상정보 파싱 클래스
  */
 public class ForecastParser {
-	protected String param;
-	private boolean isSpace = true;// 실황 정보
-	ForecastExplorer FE = new ForecastExplorer();
-	String str_Grib;
-	String str_Space;
-	JSONParser jsonParser;
-	int spaceTime;
-	int noTime;
+	public ForecastExplorer FE = new ForecastExplorer();
+	String str_Grib =FE.getGrib();
+	String str_Space=FE.getSpace();
+	JSONParser jsonParser=new JSONParser();
+	public int spaceTime=FE.make_SpaceTime();
+	public int noTime=get_NoTime(spaceTime);
 	int SIZE[] = { 11, 9, 12, 9, 11, 10, 11, 9 };
-	HashMap<String, String> mapSpace[];
-	HashMap<String, String> mapGrib ;
-	
-	public ForecastParser() throws IOException{
-		str_Space = FE.send(isSpace);
-		jsonParser = new JSONParser();
-		System.out.println(str_Space);
-		spaceTime=FE.make_SpaceTime();
-		noTime=get_NoTime(spaceTime);
-		mapSpace=new HashMap[noTime];
+	public HashMap<String, String> mapSpace[]; 
+ 	HashMap<String, String> mapGrib=new HashMap<String,String>();
+ 	
+ 	
+	ForecastParser() throws IOException, ParseException {
+	 	mapSpace=new HashMap[noTime];
 		for(int i=0;i<noTime;i++)
 			mapSpace[i]=new HashMap<String,String>();
-		spaceParsing(mapSpace);
-		mapGrib=new HashMap<String,String>();
-		str_Grib = FE.send(!isSpace);
-		jsonParser = new JSONParser();
-		System.out.println(str_Grib);
-		gribParsing(mapGrib);
+		spaceParsing();
+		gribParsing();
 	}
 	
-	public HashMap<String, String> getHashMap(){
-		return mapGrib;
-	}
-	
-	private void gribParsing(HashMap<String, String> mapGrib) throws IOException {
-		/*
-		 * Date : 2016.11.05 
-		 * Author : Byungkyu Ji 
-		 * function : 실황 정보 Parsing
-		 */
+	private void gribParsing() throws IOException {
 		JSONObject json;
+		System.out.println(str_Grib);
 		try {
 			json = (JSONObject) jsonParser.parse(str_Grib);
 
@@ -65,7 +47,6 @@ public class ForecastParser {
 				mapGrib.put(weatherObject.get("category").toString(), weatherObject.get("obsrValue").toString());
 			}
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Iterator<String> iter = mapGrib.keySet().iterator();
@@ -83,7 +64,7 @@ public class ForecastParser {
 			innerMap.put(weatherObject.get("category").toString(), weatherObject.get("fcstValue").toString()); // put
 		}
 	}
-	int get_NoTime(int baseTime){
+	private int get_NoTime(int baseTime){
 		int noTime;	
 		if(baseTime==200)
 			noTime= 15;
@@ -91,14 +72,13 @@ public class ForecastParser {
 			noTime=23-(baseTime/300);
 		}
 		return noTime;
-	
 	}
-	private void spaceParsing(HashMap<String, String>[] mapSpace) throws IOException {
+	private void spaceParsing() throws IOException {
 		JSONObject json;
 		int item_Index = 0;
 		int objectSize;
 		String fcstTime,fcstDate;
-		System.out.println(mapSpace.length);
+		//System.out.println(mapSpace.length);
 		try {
 			json = (JSONObject) jsonParser.parse(str_Space);
 			JSONObject resp = (JSONObject) json.get("response");
@@ -106,7 +86,7 @@ public class ForecastParser {
 			JSONObject items = (JSONObject) body.get("items");
 			JSONArray item = (JSONArray) items.get("item");
 			for (int mapIndex = 0; mapIndex <noTime; mapIndex++) { // 날짜 별로 순서대로
-				System.out.println(mapIndex);
+				//System.out.println(mapIndex);
 				JSONObject weatherObject = (JSONObject) item.get(item_Index);//처음 날짜 받아오기 
 				fcstDate = weatherObject.get("fcstDate").toString(); // 저장
 				fcstTime = weatherObject.get("fcstTime").toString();
@@ -139,9 +119,23 @@ public class ForecastParser {
 						item_Index+=objectSize;
 					break;
 				}
+				Iterator<String> iter = mapSpace[mapIndex].keySet().iterator();
+				while (iter.hasNext()) {
+					String key = (String) iter.next();
+					System.out.print("key=" + key);
+					System.out.println(" value=" + mapSpace[mapIndex].get(key));
+				}
+				//System.out.println(item_Index);
 			}
 		} catch (ParseException e) { // TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	public HashMap<String, String> getGribHashMap(){ 
+		 		return mapGrib; 
+		}
+	public HashMap<String, String>[] getSpaceHashMap(){ 
+ 		return mapSpace; 
+} 
+
 }

@@ -14,10 +14,10 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class NewsSAXParser extends DefaultHandler {
-	ArrayList<String> title = new ArrayList<String>();
-	ArrayList<String> link = new ArrayList<String>();
-	ArrayList<String> dscrpt = new ArrayList<String>();
-	String pubDate;
+	public ArrayList<String> title = new ArrayList<String>();
+	public ArrayList<String> link = new ArrayList<String>();
+	public ArrayList<String> dscrpt = new ArrayList<String>();
+	public String pubDate;
 	String news = "http://fs.jtbc.joins.com//RSS/newsflash.xml";
 	SAXParser parser;
 	boolean bPubDate=false;
@@ -25,7 +25,7 @@ public class NewsSAXParser extends DefaultHandler {
 	boolean bLink=false;
 	boolean bDscrpt=false;
 	boolean pubTime=true;
-	NewsSAXParser() throws ParserConfigurationException, SAXException{
+	public NewsSAXParser() throws ParserConfigurationException, SAXException{
 				parser= SAXParserFactory.newInstance().newSAXParser();
 
 	}

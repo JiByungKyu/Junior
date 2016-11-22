@@ -45,7 +45,7 @@ public class WeatherPanel extends JPanel {
 		break;
 		case "2": 
 			ta_weatherInfo.append("구름조금\n"); 
-			weatherImg = new ImageIcon("");
+			weatherImg = new ImageIcon("sunny.jpg");
 			useImg = weatherImg.getImage();
 			useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
 			weatherImg = new ImageIcon(useImg);
@@ -53,7 +53,7 @@ public class WeatherPanel extends JPanel {
 			break;
 		case "3":
 			ta_weatherInfo.append("구름많음\n");
-			weatherImg = new ImageIcon("");
+			weatherImg = new ImageIcon("sunny.jpg");
 			useImg = weatherImg.getImage();
 			useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
 			weatherImg = new ImageIcon(useImg);
@@ -62,7 +62,7 @@ public class WeatherPanel extends JPanel {
 		case "4":
 		if(MainFrame.getMapGrib().get("PTY") == "1"){
 			ta_weatherInfo.append("비\n");
-			weatherImg = new ImageIcon("");
+			weatherImg = new ImageIcon("sunny.jpg");
 			useImg = weatherImg.getImage();
 			useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
 			weatherImg = new ImageIcon(useImg);
@@ -70,7 +70,7 @@ public class WeatherPanel extends JPanel {
 		}
 		else if(MainFrame.getMapGrib().get("PTY") == "2"){
 			ta_weatherInfo.append("진눈깨비\n");
-			weatherImg = new ImageIcon("");
+			weatherImg = new ImageIcon("sunny.jpg");
 			useImg = weatherImg.getImage();
 			useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
 			weatherImg = new ImageIcon(useImg);
@@ -78,15 +78,15 @@ public class WeatherPanel extends JPanel {
 		}
 		else if(MainFrame.getMapGrib().get("PTY") == "3"){
 			ta_weatherInfo.append("눈\n");
-			weatherImg = new ImageIcon("");
+			weatherImg = new ImageIcon("sunny.jpg");
 			useImg = weatherImg.getImage();
 			useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
 			weatherImg = new ImageIcon(useImg);
 			img = new JLabel("", weatherImg, SwingUtilities.CENTER);
 		}
-		else if(MainFrame.getMapGrib().get("PTY") == "0"){
+		else{ //(MainFrame.getMapGrib().get("PTY") == "0"){
 			ta_weatherInfo.append("흐림\n");
-			weatherImg = new ImageIcon("");
+			weatherImg = new ImageIcon("sunny.jpg");
 			useImg = weatherImg.getImage();
 			useImg = useImg.getScaledInstance(70, 70, java.awt.Image.SCALE_SMOOTH);
 			weatherImg = new ImageIcon(useImg);
