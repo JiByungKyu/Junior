@@ -118,12 +118,11 @@ public class ForecastParser {
 						item_Index+=objectSize;
 					break;
 				}
-				Iterator<String> iter = mapSpace[mapIndex].keySet().iterator();
-				while (iter.hasNext()) {
-					String key = (String) iter.next();
-					System.out.print("key=" + key);
-					System.out.println(" value=" + mapSpace[mapIndex].get(key));
-				}
+				//while (iter.hasNext()) {
+				//	String key = (String) iter.next();
+					//System.out.print("key=" + key);
+					//System.out.println(" value=" + mapSpace[mapIndex].get(key));
+				//}
 				//System.out.println(item_Index);
 			}
 		} catch (ParseException e) { // TODO Auto-generated catch block
