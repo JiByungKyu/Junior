@@ -17,7 +17,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-<<<<<<< HEAD:DProject/src/HDP/twodayPanel.java
 public class twodayPanel extends JPanel {
 	private ArrayList<String> dayList =  new ArrayList<String>();
 	private int daytemplocation;
@@ -53,7 +52,7 @@ public class twodayPanel extends JPanel {
 					Image useImg;
 					JLabel img;
 					if(FP.mapSpace[i].get(key).equals("1")){
-						weatherImg = new ImageIcon("sunny.png");
+						weatherImg = new ImageIcon("DP_sunny.jpg");
 						useImg = weatherImg.getImage();
 						useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 						weatherImg = new ImageIcon(useImg);
@@ -61,7 +60,7 @@ public class twodayPanel extends JPanel {
 						img.setBounds(200, i*20+50, 20, 20);
 						add(img);
 					}else if(FP.mapSpace[i].get(key).equals("2")){
-						weatherImg = new ImageIcon("lesscloud.png");
+						weatherImg = new ImageIcon("DP_lesscloud.jpg");
 						useImg = weatherImg.getImage();
 						useImg = useImg.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
 						weatherImg = new ImageIcon(useImg);
@@ -69,7 +68,7 @@ public class twodayPanel extends JPanel {
 						img.setBounds(200, i*20+50, 20, 20);
 						add(img);
 					}else if(FP.mapSpace[i].get(key).equals("3")){
-						weatherImg = new ImageIcon("manycloud.png");
+						weatherImg = new ImageIcon("DP_manycloud.jpg");
 						useImg = weatherImg.getImage();
 						useImg = useImg.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
 						weatherImg = new ImageIcon(useImg);
@@ -78,7 +77,7 @@ public class twodayPanel extends JPanel {
 						add(img);
 					}else if(FP.mapSpace[i].get(key).equals("4")){
 						if(FP.mapSpace[i].get("PTY").equals("0")){
-							weatherImg = new ImageIcon("cloud.png");
+							weatherImg = new ImageIcon("DP_cloud.jpg");
 							useImg = weatherImg.getImage();
 							useImg = useImg.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
 							weatherImg = new ImageIcon(useImg);
@@ -86,7 +85,7 @@ public class twodayPanel extends JPanel {
 							img.setBounds(200, i*20+50, 20, 20);
 							add(img);
 						}else if(FP.mapSpace[i].get("PTY").equals("1")){
-							weatherImg = new ImageIcon("rain.png");
+							weatherImg = new ImageIcon("DP_rain.jpg");
 							useImg = weatherImg.getImage();
 							useImg = useImg.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
 							weatherImg = new ImageIcon(useImg);
@@ -94,7 +93,7 @@ public class twodayPanel extends JPanel {
 							img.setBounds(200, i*20+50, 20, 20);
 							add(img);
 						}else if(FP.mapSpace[i].get("PTY").equals("2")){
-							weatherImg = new ImageIcon("rain_snow.png");
+							weatherImg = new ImageIcon("DP_rain_snow.png");
 							useImg = weatherImg.getImage();
 							useImg = useImg.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
 							weatherImg = new ImageIcon(useImg);
@@ -102,7 +101,7 @@ public class twodayPanel extends JPanel {
 							img.setBounds(200, i*20+50, 20, 20);
 							add(img);
 						}else if(FP.mapSpace[i].get("PTY").equals("3")){
-							weatherImg = new ImageIcon("snow.png");
+							weatherImg = new ImageIcon("DP_snow.jpg");
 							useImg = weatherImg.getImage();
 							useImg = useImg.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
 							weatherImg = new ImageIcon(useImg);
@@ -162,37 +161,6 @@ public class twodayPanel extends JPanel {
 		JLabel LB_temp = new JLabel("온도");
 		LB_temp.setBounds(245, 30, 30, 15);
 		add(LB_temp);
-=======
-
-public class Submain extends JFrame {
-	
-	private JTabbedPane jtp = new JTabbedPane();
-	private twodayPanel PN_Weather;
-	private newsPanel PN_News = new newsPanel();
-	//private JPanel PN_Subway = new JPanel();
-	
-	public Submain(ForecastParser FP) throws IOException, ParseException{
-		super("Weather Detail");
-		PN_Weather = new twodayPanel(FP);
-		//PN_Weather.setBackground(Color.WHITE);
-		
-		
-			
-		PN_News.setBackground(Color.WHITE);
-		
-		
-		
-		jtp.addTab("날씨", PN_Weather);
-		jtp.addTab("뉴스", PN_News);
-		PN_News.setLayout(null);
-		//jtp.addTab("지하철", PN_Subway);
-		this.setSize(330,545);
-		this.setLocation(1105,93);
-		setResizable(false);      
-		
-		getContentPane().add(jtp,BorderLayout.CENTER);
-		setVisible(true);
->>>>>>> 408dd76e91fce1f531c64a0ff2b2bd5390501be4:DProject/src/JDP/Submain.java
 		
 		setBackground(Color.WHITE);
 		setLayout(null);

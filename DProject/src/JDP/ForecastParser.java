@@ -13,7 +13,6 @@ import org.json.simple.parser.ParseException;
  * class: 기상정보 파싱 클래스
  */
 public class ForecastParser {
-<<<<<<< HEAD
 	public ForecastExplorer FE = new ForecastExplorer();
 	String str_Grib =FE.getGrib();
 	String str_Space=FE.getSpace();
@@ -22,16 +21,6 @@ public class ForecastParser {
 	public int noTime=get_NoTime(spaceTime);
 	int SIZE[] = { 11, 9, 12, 9, 11, 10, 11, 9 };
 	public HashMap<String, String> mapSpace[]; 
-=======
-	ForecastExplorer FE = new ForecastExplorer();
-	String str_Grib =FE.getGrib();
-	String str_Space=FE.getSpace();
-	JSONParser jsonParser=new JSONParser();
-	int spaceTime=FE.make_SpaceTime();
-	int noTime=get_NoTime(spaceTime);
-	int SIZE[] = { 11, 9, 12, 9, 11, 10, 11, 9 };
-	HashMap<String, String> mapSpace[]; 
->>>>>>> 408dd76e91fce1f531c64a0ff2b2bd5390501be4
  	HashMap<String, String> mapGrib=new HashMap<String,String>();
  	
  	

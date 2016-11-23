@@ -16,11 +16,7 @@ public class ForecastMidParser {
 	String str_Land = FME.getLand();
 	String str_Temp=FME.getTemp();
  	String realFrcst;
-<<<<<<< HEAD
 	public ForecastMidParser() throws IOException {
-=======
-	ForecastMidParser() throws IOException {
->>>>>>> 408dd76e91fce1f531c64a0ff2b2bd5390501be4
 		frcstParsing();
 		landParsing();
 		tempParsing();

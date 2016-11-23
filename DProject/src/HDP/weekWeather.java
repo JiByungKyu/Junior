@@ -108,7 +108,16 @@ public class weekWeather extends JFrame {
 		JLabel img;
 		if(Time.equals("AM")){
 			if((AMweather.get(i).contains("구름"))&&(AMweather.get(i).contains("비"))){
-				weatherImg = new ImageIcon("cloud_rain.png");
+				weatherImg = new ImageIcon("DP_cloud_rain.jpg");
+				useImg = weatherImg.getImage();
+				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
+				weatherImg = new ImageIcon(useImg);
+				img = new JLabel("", weatherImg, SwingUtilities.CENTER);
+				img.setBounds(60+40*i, 317, 30, 30);
+				return img;
+			}
+			else if((AMweather.get(i).contains("눈"))&&(AMweather.get(i).contains("비"))){
+				weatherImg = new ImageIcon("DP_rain_snow.png");
 				useImg = weatherImg.getImage();
 				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 				weatherImg = new ImageIcon(useImg);
@@ -117,7 +126,7 @@ public class weekWeather extends JFrame {
 				return img;
 			}
 			else if((AMweather.get(i).contains("눈"))){
-				weatherImg = new ImageIcon("snow.png");
+				weatherImg = new ImageIcon("DP_snow.jpg");
 				useImg = weatherImg.getImage();
 				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 				weatherImg = new ImageIcon(useImg);
@@ -125,7 +134,7 @@ public class weekWeather extends JFrame {
 				img.setBounds(60+40*i, 317, 30, 30);
 				return img;
 			}if(AMweather.get(i).contains("비")){
-				weatherImg = new ImageIcon("rain.png");
+				weatherImg = new ImageIcon("DP_rain.jpg");
 				useImg = weatherImg.getImage();
 				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 				weatherImg = new ImageIcon(useImg);
@@ -135,11 +144,11 @@ public class weekWeather extends JFrame {
 			}
 			else if((AMweather.get(i).contains("구름"))){
 				if((AMweather.get(i).contains("많음"))){
-					weatherImg = new ImageIcon("manycloud.png");
+					weatherImg = new ImageIcon("DP_manycloud.jpg");
 				}else if((AMweather.get(i).contains("조금"))){
-					weatherImg = new ImageIcon("lesscloud.png");
+					weatherImg = new ImageIcon("DP_lesscloud.jpg");
 				}else{
-					weatherImg = new ImageIcon("cloud.png");
+					weatherImg = new ImageIcon("DP_cloud.jpg");
 				}
 				useImg = weatherImg.getImage();
 				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
@@ -147,22 +156,29 @@ public class weekWeather extends JFrame {
 				img = new JLabel("", weatherImg, SwingUtilities.CENTER);
 				img.setBounds(60+40*i, 317, 30, 30);
 				return img;
-			}else if(AMweather.get(i).contains("맑음")){
-				weatherImg = new ImageIcon("sunny.png");
+			}else {
+				weatherImg = new ImageIcon("DP_sunny.jpg");
 				useImg = weatherImg.getImage();
 				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 				weatherImg = new ImageIcon(useImg);
 				img = new JLabel("", weatherImg, SwingUtilities.CENTER);
 				return img;
-			}else {
-				return null;
 			}
 			
 			
 			
 		}else if(Time.equals("PM")){
 			if((PMweather.get(i).contains("구름"))&&(AMweather.get(i).contains("비"))){
-				weatherImg = new ImageIcon("cloud_rain.png");
+				weatherImg = new ImageIcon("DP_cloud_rain.jpg");
+				useImg = weatherImg.getImage();
+				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
+				weatherImg = new ImageIcon(useImg);
+				img = new JLabel("", weatherImg, SwingUtilities.CENTER);
+				img.setBounds(60+40*i, 317, 30, 30);
+				return img;
+			}
+			else if((PMweather.get(i).contains("눈"))&&(PMweather.get(i).contains("비"))){
+				weatherImg = new ImageIcon("DP_rain_snow.png");
 				useImg = weatherImg.getImage();
 				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 				weatherImg = new ImageIcon(useImg);
@@ -171,7 +187,7 @@ public class weekWeather extends JFrame {
 				return img;
 			}
 			else if(PMweather.get(i).contains("비")){
-				weatherImg = new ImageIcon("rain.png");
+				weatherImg = new ImageIcon("DP_rain.jpg");
 				useImg = weatherImg.getImage();
 				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 				weatherImg = new ImageIcon(useImg);
@@ -179,7 +195,7 @@ public class weekWeather extends JFrame {
 				img.setBounds(60+40*i, 357, 30, 30);
 				return img;
 			}else if(PMweather.get(i).contains("눈")){
-				weatherImg = new ImageIcon("snow.png");
+				weatherImg = new ImageIcon("DP_snow.jpg");
 				useImg = weatherImg.getImage();
 				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 				weatherImg = new ImageIcon(useImg);
@@ -188,11 +204,11 @@ public class weekWeather extends JFrame {
 				return img;
 			}else if((PMweather.get(i).contains("구름"))){
 				if((PMweather.get(i).contains("많음"))){
-					weatherImg = new ImageIcon("manycloud.png");
+					weatherImg = new ImageIcon("DP_manycloud.jpg");
 				}else if((PMweather.get(i).contains("조금"))){
-					weatherImg = new ImageIcon("lesscloud.png");
+					weatherImg = new ImageIcon("DP_lesscloud.jpg");
 				}else{
-					weatherImg = new ImageIcon("cloud.png");
+					weatherImg = new ImageIcon("DP_cloud.jpg");
 				}
 				useImg = weatherImg.getImage();
 				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
@@ -200,20 +216,26 @@ public class weekWeather extends JFrame {
 				img = new JLabel("", weatherImg, SwingUtilities.CENTER);
 				img.setBounds(60+40*i, 357, 30, 30);
 				return img;
-			}else if(PMweather.get(i).contains("맑음")){
-				weatherImg = new ImageIcon("sunny.png");
+			}else{
+				weatherImg = new ImageIcon("DP_sunny.jpg");
 				useImg = weatherImg.getImage();
 				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 				weatherImg = new ImageIcon(useImg);
 				img = new JLabel("", weatherImg, SwingUtilities.CENTER);
 				return img;
-			}else{
-				return null;
-			}
-			
+			}			
 		}else{
 			if((AMweather.get(i).contains("구름"))&&(AMweather.get(i).contains("비"))){
-				weatherImg = new ImageIcon("cloud_rain.png");
+				weatherImg = new ImageIcon("DP_cloud_rain.jpg");
+				useImg = weatherImg.getImage();
+				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
+				weatherImg = new ImageIcon(useImg);
+				img = new JLabel("", weatherImg, SwingUtilities.CENTER);
+				img.setBounds(60+40*i, 317, 30, 30);
+				return img;
+			}
+			else if((AMweather.get(i).contains("눈"))&&(AMweather.get(i).contains("비"))){
+				weatherImg = new ImageIcon("DP_rain_snow.png");
 				useImg = weatherImg.getImage();
 				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 				weatherImg = new ImageIcon(useImg);
@@ -222,14 +244,14 @@ public class weekWeather extends JFrame {
 				return img;
 			}
 			if(AMweather.get(i).contains("비")){
-				weatherImg = new ImageIcon("rain.png");
+				weatherImg = new ImageIcon("DP_rain.jpg");
 				useImg = weatherImg.getImage();
 				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 				weatherImg = new ImageIcon(useImg);
 				img = new JLabel("", weatherImg, SwingUtilities.CENTER);
 				return img;
 			}else if((AMweather.get(i).contains("눈"))){
-				weatherImg = new ImageIcon("snow.png");
+				weatherImg = new ImageIcon("DP_snow.jpg");
 				useImg = weatherImg.getImage();
 				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 				weatherImg = new ImageIcon(useImg);
@@ -237,28 +259,26 @@ public class weekWeather extends JFrame {
 				return img;
 			}else if((AMweather.get(i).contains("구름"))){
 				if((AMweather.get(i).contains("많음"))){
-					weatherImg = new ImageIcon("manycloud.png");
+					weatherImg = new ImageIcon("DP_manycloud.jpg");
 				}else if((AMweather.get(i).contains("조금"))){
-					weatherImg = new ImageIcon("lesscloud.png");
+					weatherImg = new ImageIcon("DP_lesscloud.jpg");
 				}else{
-					weatherImg = new ImageIcon("cloud.png");
+					weatherImg = new ImageIcon("DP_cloud.jpg");
 				}
 				useImg = weatherImg.getImage();
 				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 				weatherImg = new ImageIcon(useImg);
 				img = new JLabel("", weatherImg, SwingUtilities.CENTER);
 				return img;
-			}else if(AMweather.get(i).contains("맑음")){
-				weatherImg = new ImageIcon("sunny.png");
+			}else{
+				weatherImg = new ImageIcon("DP_sunny.jpg");
 				useImg = weatherImg.getImage();
 				useImg = useImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 				weatherImg = new ImageIcon(useImg);
 				img = new JLabel("", weatherImg, SwingUtilities.CENTER);
 				return img;
 			}
-			else{
-				return null;
-			}
+			
 		}
 	}
 
