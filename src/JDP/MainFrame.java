@@ -33,7 +33,7 @@ public class MainFrame extends JFrame {
 				fineDustParser = new FineDustParser(); 
 				mapGrib = forecastParser.getGribHashMap();
 				mapFnDst = fineDustParser.getFnDstHashMap(); 
-				Submain smain = new Submain(forecastParser);
+				//Submain smain = new Submain(forecastParser);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
