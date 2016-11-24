@@ -25,7 +25,7 @@ public class Submain extends JFrame {
 	public Submain(ForecastParser FP) throws IOException, ParseException{
 		super("Weather Detail");
 		PN_Weather = new twodayPanel(FP);
-		//PN_Weather.setBackground(Color.WHITE);
+		PN_Weather.setBackground(Color.WHITE);
 		
 		
 			
@@ -37,10 +37,10 @@ public class Submain extends JFrame {
 		jtp.addTab("뉴스", PN_News);
 		PN_News.setLayout(null);
 		JLabel Media = new JLabel(PN_News.news.getTitle().get(0));
-		Media.setFont(new Font("궁서", Font.BOLD, 14));
+		Media.setFont(new Font("맑은 고딕", Font.BOLD, 18));
 		int pubDateLength = PN_News.news.getPubDate().length();
-		JLabel getDate = new JLabel(PN_News.news.getPubDate().substring(0, pubDateLength-3)+" 정보");
-		Media.setBounds(12, 10, 86, 30);
+		JLabel getDate = new JLabel(PN_News.news.getPubDate().substring(0, pubDateLength-3)+" ");
+		Media.setBounds(12, 10, 200, 30);
 		getDate.setBounds(12, 38, 248, 25);
 		PN_News.add(Media);
 		PN_News.add(getDate);

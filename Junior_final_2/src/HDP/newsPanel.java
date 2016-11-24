@@ -39,6 +39,7 @@ public class newsPanel extends JPanel{
 		SP_news.getVerticalScrollBar().setUnitIncrement(16);
 		SP_news.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		//SP_news.setPreferredSize(new Dimension(200,300));
+
 		PN_inner.add(SP_news,BorderLayout.CENTER);
 		this.add(PN_inner);
 		
@@ -58,16 +59,24 @@ public class newsPanel extends JPanel{
 			String STR_allTitle = new String(news.getTitle().get(i));
 			JTextArea TA_Title =setlinkTA(news.getLink().get(i), STR_allTitle);
 			JTextArea TA_dscrpt = new JTextArea(news.getDscrpt().get(i));
-			TA_Title.setBounds(10,10,260,40);
+    		TA_dscrpt.setEditable(false);
+            TA_Title.setEditable(false);
 			TA_Title.setLineWrap(true);
 			TA_Title.setWrapStyleWord(true);
 			TA_Title.setFont(new Font("맑은 고딕", Font.BOLD,15));
-			TA_Title.setBackground(Color.WHITE);
-			TA_dscrpt.setBounds(10,50,260,65);
+			if(STR_allTitle.length()<=25){
+				TA_Title.setBounds(10,8,260,20);
+				TA_dscrpt.setBounds(10,35,260,85);
+			}
+			else{
+				TA_Title.setBounds(10,8,260,40);
+				TA_dscrpt.setBounds(10,55,260,65);
+			}
+
 			TA_dscrpt.setLineWrap(true);
 			TA_dscrpt.setWrapStyleWord(true);
 			TA_dscrpt.setBackground(new JPanel().getBackground());
-			
+			TA_Title.setBackground(new JPanel().getBackground());
 			JPanel rowPanel = new JPanel();
             rowPanel.setPreferredSize(new Dimension(280,120));
             rowPanel.setLayout(null);
@@ -75,9 +84,9 @@ public class newsPanel extends JPanel{
             rowPanel.setLayout(null);
             rowPanel.add(TA_Title);
             rowPanel.add(TA_dscrpt);
-            
-            
+
             if(i%2==0){
+    			TA_Title.setBackground(SystemColor.inactiveCaptionBorder);
                 rowPanel.setBackground(SystemColor.inactiveCaptionBorder);
                 TA_dscrpt.setBackground(SystemColor.inactiveCaptionBorder);
             }

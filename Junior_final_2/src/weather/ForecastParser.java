@@ -48,7 +48,6 @@ public class ForecastParser {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		Iterator<String> iter = mapGrib.keySet().iterator();
 	}
 
 	private void putData(HashMap<String, String> innerMap, JSONArray item, int size,int item_Index) { // JSONObject를
@@ -111,7 +110,6 @@ public class ForecastParser {
 						item_Index+=objectSize;
 					break;
 				}
-				Iterator<String> iter = getMapSpace()[mapIndex].keySet().iterator();
 			}
 		} catch (ParseException e) { // TODO Auto-generated catch block
 			e.printStackTrace();

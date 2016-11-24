@@ -25,10 +25,7 @@ public class twodayPanel extends JPanel {
 			Iterator<String> iter = FP.getMapSpace()[i].keySet().iterator();
 			
 			while (iter.hasNext()) {
-			
 				String key = (String) iter.next();
-				System.out.print("key=" + key);
-				System.out.println(" value=" + FP.getMapSpace()[i].get(key));
 				if(key.equals("T3H")){
 					JLabel LB_label = new JLabel(FP.getMapSpace()[i].get(key)+"°C");
 					LB_label.setBounds(250, i*20+50, 30, 15);
