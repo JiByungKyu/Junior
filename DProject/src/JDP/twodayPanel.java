@@ -3,16 +3,16 @@ package JDP;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class twodayPanel extends JPanel {
 	private ArrayList<String> dayList =  new ArrayList<String>();
@@ -161,7 +161,8 @@ public class twodayPanel extends JPanel {
 		
 		setBackground(Color.WHITE);
 		setLayout(null);
-		
+		int infodateint = FP.spaceTime;
+		//JLabel infodate = new JLabel(infodateint.toString());
 		JButton button = new JButton("주간날씨보기");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
