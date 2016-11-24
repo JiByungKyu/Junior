@@ -14,10 +14,17 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class NewsSAXParser extends DefaultHandler {
+<<<<<<< HEAD:Junior_final_2/src/weather/NewsSAXParser.java
 	private ArrayList<String> title = new ArrayList<String>();
 	private ArrayList<String> link = new ArrayList<String>();
 	private ArrayList<String> dscrpt = new ArrayList<String>();
 	private String pubDate;
+=======
+	public ArrayList<String> title = new ArrayList<String>();
+	public ArrayList<String> link = new ArrayList<String>();
+	public ArrayList<String> dscrpt = new ArrayList<String>();
+	public String pubDate;
+>>>>>>> be45af4268122ff1f701508c09e2f2efe93d56fa:DProject/src/JDP/NewsSAXParser.java
 	String news = "http://fs.jtbc.joins.com//RSS/newsflash.xml";
 	SAXParser parser;
 	boolean bPubDate=false;
