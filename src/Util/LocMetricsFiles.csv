@@ -1,0 +1,9 @@
+File,LOC,SLOC-P,SLOC-L,MVG,BLOC,C&SLOC,CLOC,CWORD,HCLOC,HCWORD
+C:\Users\ByungKyu\Desktop\JDP\src\Util\ApiExplorer.java,64,53,46,5,5,0,6,32,0,0
+C:\Users\ByungKyu\Desktop\JDP\src\Util\FineDustExplorer.java,34,28,23,2,3,3,3,16,0,0
+C:\Users\ByungKyu\Desktop\JDP\src\Util\FineDustParser.java,56,44,37,4,6,0,6,13,0,0
+C:\Users\ByungKyu\Desktop\JDP\src\Util\ForecastExplorer.java,108,86,68,17,10,13,12,55,0,0
+C:\Users\ByungKyu\Desktop\JDP\src\Util\ForecastMidExplorer.java,84,72,60,8,4,13,8,67,0,0
+C:\Users\ByungKyu\Desktop\JDP\src\Util\ForecastMidParser.java,106,93,78,6,7,0,6,15,0,0
+C:\Users\ByungKyu\Desktop\JDP\src\Util\ForecastParser.java,152,130,100,16,14,10,8,38,0,0
+C:\Users\ByungKyu\Desktop\JDP\src\Util\NewsSAXParser.java,105,90,67,8,9,4,6,25,0,0
