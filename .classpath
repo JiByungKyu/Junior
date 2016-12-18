@@ -2,6 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/User/workspace/JDP/json-simple.jar"/>
+=======
+	<classpathentry kind="lib" path="C:/Users/ByungKyu/Desktop/plugins/com.googlecode.json-simple_1.1.1.jar"/>
+>>>>>>> a8ecebe03b04f20fe1760fbb616dc4e67105ab96
 	<classpathentry kind="output" path="bin"/>
 </classpath>
