@@ -1,9 +1,3 @@
 eclipse.preferences.version=1
-<<<<<<< HEAD
-encoding//src/JDP/WeatherPanel.java=UTF-8
-encoding//src/weather/ForecastParser.java=UTF-8
-=======
-encoding//src/ForecastParser.java=UTF-8
-encoding//src/JDP/ContentFrame.java=UTF-8
-encoding//src/JDP/MainFrame.java=UTF-8
->>>>>>> a8ecebe03b04f20fe1760fbb616dc4e67105ab96
+encoding//src/TaskManager/WeatherPanel.java=UTF-8
+encoding//src/Util/ForecastParser.java=UTF-8
